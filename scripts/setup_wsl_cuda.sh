@@ -44,5 +44,4 @@ echo -n "zmq: "; dpkg -l libzmq3-dev 2>/dev/null | grep -c "ii" && echo "OK" || 
 echo -n "json-c: "; dpkg -l libjson-c-dev 2>/dev/null | grep -c "ii" && echo "OK" || echo "NOT FOUND"
 echo ""
 echo "=== READY TO COMPILE ==="
-echo "Next: cd /mnt/d/fractal-brain/beast-build"
-echo "      nvcc -o lbm_cuda_daemon lbm_cuda_daemon.cu -lzmq -ljson-c -lnvidia-ml -O3 -arch=sm_89"
+echo "Next: bash scripts/compile.sh"

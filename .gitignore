@@ -11,6 +11,7 @@
 *.o
 *.so
 *.pyc
+build/
 
 # Compiled CUDA executables (no extension, listed explicitly)
 khra_gixx
@@ -100,3 +101,7 @@ attractors/
 
 # --- Golden weave experiment data ---
 golden-weave-experiments/
+
+# --- Training / LoRA (deprecated) ---
+training/
+*.jsonl
