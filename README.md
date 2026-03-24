@@ -254,10 +254,12 @@ resonance-engine/
 │   ├── compile.sh                 ← compile the CUDA kernel
 │   ├── start.sh                   ← start daemon + navigator
 │   ├── launch.sh                  ← start daemon only
-│   └── verify_install.sh          ← check your install
+│   ├── verify_install.sh          ← check your install
+│   └── periodic_table_sweep.sh    ← parameter sweep via Navigator API
 ├── docs/
-│   ├── SYSTEM_MANUAL.md           ← detailed system internals
-│   └── KHRAGIXX_HARD_PHYSICS.md   ← dark matter, dark energy, Navier-Stokes implications
+│   ├── SYSTEM_MANUAL.md                ← detailed system internals
+│   ├── KHRAGIXX_HARD_PHYSICS.md        ← dark matter, dark energy, Navier-Stokes implications
+│   └── PERIODIC_TABLE_EXPLAINED.md     ← energy bands, phase gap, φ-harmonics, Russell mapping
 ```
 
 ---
