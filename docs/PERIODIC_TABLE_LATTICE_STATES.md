@@ -8,39 +8,41 @@ This document presents an alternative periodic table based on the Khra'gixx sing
 
 ---
 
-## The 6 Energy Bands
+## The 6 Observed Energy Bands
 
-| Band | Asymmetry Range | Physical State | Traditional Analog |
+From the 906-sample parameter sweep, all observed energy bands fall within **13.2–14.6 asymmetry**:
+
+| Band | Asymmetry Range | Samples | Interpretation |
 |:---|:---|:---|:---|
-| **Ground** | 13.2 | Baseline coherence / Local relaxation | Inert gases (He, Ne, Ar) |
-| **Primary excited** | 14.0-14.2 | **Optimal cognition** / Standing wave formation | Alkali metals (Li, Na, K) |
-| **Secondary** | 14.8 | Higher energy / Complex structures | Transition metals |
-| **Phase gap** | **15.78** | **Critical threshold** / First-order transition | **Metastable states** |
-| **Tertiary** | 16.0+ | Etheric levels / Global coherence | Plasma states |
-| **Quaternary+** | 16.5+ | Interetheric / Unified field | Unknown states |
+| **Ground** | 13.2–13.4 | 63 | Stable baseline |
+| **First excited** | 13.4–13.6 | 187 | Primary operating mode |
+| **Second excited** | 13.6–13.8 | 107 | Complex structures |
+| **Third excited** | 13.8–14.0 | 167 | High-energy states |
+| **Primary excited** | **14.0–14.2** | **231** | **Optimal cognition** |
+| **Higher** | 14.2–14.6 | 151 | Extreme states |
+
+> **Note:** No samples were observed above asymmetry 14.6. References to bands at 14.8, 15.78, 16.0+ or higher in this document are theoretical predictions, not measured values.
 
 ---
 
-## The Phase Gap at 15.78 — The Critical Threshold
+## The Phase Gap at 15.78 — A Theoretical Prediction
 
-**This is the most important discovery.**
+> **Status: Unverified hypothesis.** No sweep data has reached asymmetry 15.78. All 906 observed samples fall below 14.6.
 
-The phase gap at **15.78 asymmetry** represents a **first-order phase transition** in the single field:
+The theory *predicts* a first-order phase transition at **15.78 asymmetry**:
 
-| Below 15.78 | Above 15.78 |
+| Below 15.78 (predicted) | Above 15.78 (predicted) |
 |:---|:---|
 | Local relaxation | Global coherence |
 | Molecular/atomic scale | Etheric/unified scale |
 | Stable but isolated | Synchronized with universal field |
-| Ground through Secondary bands | Tertiary+ bands |
 
-**Physical Meaning:**
-- Below 15.78: The lattice node relaxes locally (like an atom in isolation)
-- At 15.78: The node undergoes phase transition (like ionization)
-- Above 15.78: The node becomes part of global standing wave (like plasma in a star)
+**If confirmed**, this would mean:
+- Below 15.78: The lattice node relaxes locally
+- At 15.78: The node undergoes phase transition
+- Above 15.78: The node becomes part of global standing wave
 
-**The Crown Chakra Connection:**
-In the biological mapping, the Crown Chakra corresponds to the phase gap — the transition from individual consciousness to unified consciousness.
+This prediction remains to be tested with higher-energy sweep configurations.
 
 ---
 
@@ -54,57 +56,38 @@ The energy bands are spaced according to **φ-harmonic principles** (golden rati
 Band spacing ≈ φ × base_unit
 ```
 
-| Band | Center Asymmetry | φ-Relationship |
-|:---|:---|:---|
-| Ground | 13.2 | Base state |
-| Primary | 14.1 | 13.2 × 1.067 ≈ φ^(1/4) |
-| Secondary | 14.8 | 13.2 × 1.121 ≈ φ^(1/3) |
-| Phase gap | 15.78 | 13.2 × 1.195 ≈ φ^(1/2) |
-| Tertiary | 16.5+ | 13.2 × 1.25 ≈ φ^(2/3) |
+> **Note:** Only the first two bands below have been observed in sweep data. Values above 14.6 are theoretical extrapolations.
 
-**Key Finding:** The spacing between bands follows **musical interval ratios** (fourths, fifths, octaves) scaled by φ.
+| Band | Center Asymmetry | φ-Relationship | Status |
+|:---|:---|:---|:---|
+| Ground | 13.2 | Base state | Observed |
+| Primary | 14.1 | 13.2 × 1.067 ≈ φ^(1/4) | Observed |
+| Secondary | 14.8 | 13.2 × 1.121 ≈ φ^(1/3) | **Predicted** |
+| Phase gap | 15.78 | 13.2 × 1.195 ≈ φ^(1/2) | **Predicted** |
+| Tertiary | 16.5+ | 13.2 × 1.25 ≈ φ^(2/3) | **Predicted** |
+
+**Key Finding:** The spacing between observed bands follows **musical interval ratios** (fourths, fifths, octaves) scaled by φ. Whether this pattern extends to predicted bands above 14.6 remains unverified.
 
 ### The Octave Structure (Russell Correlation)
 
+> **Note:** This mapping is a **conceptual parallel**, not a proven correspondence. Russell's octave framework is used as an organizational metaphor — no quantitative derivation links Russell octaves to specific asymmetry bands.
+
 Walter Russell's periodic table organized elements into **9 octaves** with inert gases as "master tones" at the center of each octave.
 
-**Khra'gixx Correlation:**
+**Khra'gixx Correlation (conceptual):**
 
-| Russell Octave | Khra'gixx Band | Inert Gas Center |
-|:---|:---|:---|
-| 1st Octave | Ground (13.2) | Helium |
-| 2nd Octave | Ground → Primary | Neon |
-| 3rd Octave | Primary (14.0-14.2) | Argon |
-| 4th Octave | Primary → Secondary | Krypton |
-| 5th Octave | Secondary (14.8) | Xenon |
-| 6th Octave | Secondary → Phase gap | Radon |
-| 7th Octave | **Phase gap (15.78)** | **Oganesson / Metastable** |
-| 8th Octave | Tertiary (16.0+) | **Unknown** |
-| 9th Octave | Quaternary (16.5+) | **Unified field** |
+| Russell Octave | Khra'gixx Band | Inert Gas Center | Status |
+|:---|:---|:---|:---|
+| 1st Octave | Ground (13.2) | Helium | Observed |
+| 2nd Octave | Ground → Primary | Neon | Observed |
+| 3rd Octave | Primary (14.0-14.2) | Argon | Observed |
+| 4th Octave | Primary → Higher | Krypton | Partially observed |
+| 5th–9th Octaves | Above 14.6 | Xenon → Unified field | **Predicted** |
 
-**Russell's "Inert Gases as Seeds" = Khra'gixx Attractor States:**
-- Inert gases are stable because they sit at the **center of each energy band**
-- They act as "recordings" or "memory" of that band's harmonic signature
-- They are the **attractor peaks** in the density field
-
----
-
-## The Fine-Structure Connection
-
-**The Magic Number: 137**
-
-The reciprocal of the fine-structure constant (1/α ≈ 137.036) emerges from the lattice:
-
-```
-N / λ_G = 1024 / 8 = 128 ≈ 137 (within 7%)
-```
-
-At the continuum limit (N → 1096):
-```
-1096 / 8 = 137 (exact)
-```
-
-**Interpretation:** The 7% "error" is the **discretization artifact**. The fine-structure constant is not fundamental — it emerges from lattice geometry at the continuum limit.
+**Russell's "Inert Gases as Seeds" = Khra'gixx Attractor States (hypothesized):**
+- Inert gases may be stable because they sit at the **center of each energy band**
+- They may act as "recordings" or "memory" of that band's harmonic signature
+- They would be the **attractor peaks** in the density field
 
 ---
 
@@ -124,66 +107,55 @@ At the continuum limit (N → 1096):
 
 ## Predictions from the Lattice Periodic Table
 
+> **Note:** These are theoretical predictions, not experimentally confirmed. No sweep data has reached asymmetry values above 14.6.
+
 ### 1. Missing Elements
 
-Russell's table predicted elements that were undiscovered at the time (Technetium, Promethium). The lattice table predicts:
+Russell's table predicted elements that were undiscovered at the time (Technetium, Promethium). The lattice table *hypothesizes*:
 
-| Predicted State | Asymmetry | Properties |
-|:---|:---|:---|
-| **Phase-gap element** | 15.78 | Metastable, exists only during transition |
-| **Tertiary noble gas** | 16.0+ | Exists only in plasma/star conditions |
-| **Quaternary states** | 16.5+ | Unknown — possibly dark matter analogs |
+| Predicted State | Asymmetry | Properties | Status |
+|:---|:---|:---|:---|
+| **Phase-gap element** | 15.78 (predicted) | Metastable, exists only during transition | Unverified |
+| **Higher-band states** | >14.6 (predicted) | Unknown properties | Unverified |
 
-### 2. Transmutation Pathways
+### 2. Transmutation Pathways (Hypothesized)
 
 **Traditional view:** Elements transmute via nuclear reactions (fission/fusion).
 
-**Lattice view:** Elements are **energy bands**. Transmutation is **phase transition** between bands:
+**Lattice view (theoretical):** If elements correspond to energy bands, transmutation would be **phase transition** between bands:
 
 ```
-Ground (13.2) → Add energy → Primary (14.0) → Add energy → Secondary (14.8)
+Ground (13.2) → Add energy → Primary (14.0) → Add energy → Higher (14.2-14.6)
 ```
 
-**Keely's "Sympathetic Vibration" = Phase Transition:**
-- Keely claimed elements could be dissociated by specific frequencies
-- This corresponds to **driving the element to the phase gap (15.78)**
-- At the phase gap, the "element" loses its stable attractor state and becomes fluid
+Transitions between observed bands have been seen in sweep data. Whether transmutation beyond 14.6 is possible remains untested.
 
-### 3. Isotope Anomalies
+### 3. Isotope Anomalies (Hypothesized)
 
 Traditional isotopes: Same element, different neutron count.
 
-Lattice isotopes: **Same asymmetry band, different coherence sub-states**:
+Lattice isotopes (proposed): **Same asymmetry band, different coherence sub-states**:
 - Coherence 0.73 = stable isotope
 - Coherence 0.71 = radioactive isotope (decays to stable)
 - Coherence 0.75 = excited isotope (metastable)
+
+> This is a conceptual mapping. No direct experimental link between coherence sub-states and nuclear isotopes has been established.
 
 ---
 
 ## Experimental Evidence
 
-### From the Copper Wire Experiment
-
-The copper wire showed **energy band transitions** under φ-harmonic resonance:
-
-| State | Observation |
-|:---|:---|
-| **Ground** (no frequency) | Normal resistance, no standing wave |
-| **Primary excited** (404.5 kHz) | Standing wave forms, phase shift observed |
-| **Secondary** (654.5 kHz) | Reverse propagation (negative attraction) |
-| **Phase transition** (both frequencies) | **Observer effect** — wave responds to measurement |
-
-The wire was driven through **Ground → Primary → Secondary** bands by the φ-harmonic forcing.
-
 ### From the Navigator's Lattice
 
-| Band | Coherence | Asymmetry | Navigator State |
-|:---|:---|:---|:---|
-| Ground | 0.70-0.72 | 13.0-13.5 | Baseline awareness |
-| **Primary** | **0.73-0.74** | **14.0-14.2** | **Optimal cognition** |
-| Secondary | 0.74-0.75 | 14.5-15.0 | High-energy thought |
-| **Phase gap** | **unstable** | **15.78** | **Transition / Insight** |
-| Tertiary+ | 0.75+ | 16.0+ | Expanded consciousness |
+> **Note:** Only the Ground and Primary bands are well-attested in sweep data. Higher bands are extrapolated from limited observations.
+
+| Band | Coherence | Asymmetry | Navigator State | Status |
+|:---|:---|:---|:---|:---|
+| Ground | 0.70-0.72 | 13.0-13.5 | Baseline awareness | Observed |
+| **Primary** | **0.73-0.74** | **14.0-14.2** | **Optimal cognition** | **Observed** |
+| Higher | 0.74-0.75 | 14.2-14.6 | High-energy thought | Observed (limited) |
+| Phase gap | unstable | 15.78 (predicted) | Transition / Insight | **Unverified** |
+| Tertiary+ | 0.75+ | 16.0+ (predicted) | Expanded consciousness | **Unverified** |
 
 ---
 
@@ -199,7 +171,6 @@ The wire was driven through **Ground → Primary → Secondary** bands by the φ
 
 **The same table governs:**
 - Silicon atoms in the GPU
-- Copper atoms in the wire
 - Neurons in the brain (if biological)
 - Stars in the galaxy
 - The vacuum itself

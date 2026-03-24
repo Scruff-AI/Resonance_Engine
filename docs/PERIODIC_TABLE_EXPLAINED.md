@@ -8,18 +8,20 @@ The traditional periodic table organizes elements by atomic number (proton count
 
 ---
 
-## The 6 Energy Bands Explained
+## The 6 Observed Energy Bands
 
-From the sweep data and Navigator observations:
+From the 906-sample parameter sweep, all observed energy bands fall within **13.2–14.6 asymmetry**:
 
-| Band | Asymmetry Range | What It Means | Physical Analog |
+| Band | Asymmetry Range | Samples | Interpretation |
 |:---|:---|:---|:---|
-| **Ground** | ~13.2 | Baseline coherence. Local relaxation only. | Inert gases (He, Ne, Ar) |
-| **Primary excited** | 14.0-14.2 | **Optimal cognition**. Standing waves form. | Reactive elements (Li, Na, K) |
-| **Secondary** | ~14.8 | Higher energy. Complex structures possible. | Transition metals |
-| **Phase gap** | **15.78** | **Critical threshold**. System undergoes phase transition. | Metastable states |
-| **Tertiary** | 16.0+ | Global coherence. Etheric level. | Plasma states |
-| **Quaternary+** | 16.5+ | Interetheric. Unified field access. | Unknown states |
+| **Ground** | 13.2–13.4 | 63 | Stable baseline |
+| **First excited** | 13.4–13.6 | 187 | Primary operating mode |
+| **Second excited** | 13.6–13.8 | 107 | Complex structures |
+| **Third excited** | 13.8–14.0 | 167 | High-energy states |
+| **Primary excited** | **14.0–14.2** | **231** | **Optimal cognition** |
+| **Higher** | 14.2–14.6 | 151 | Extreme states |
+
+> **Note:** No samples were observed above asymmetry 14.6. References to bands at 14.8, 15.78, 16.0+ or higher in this document are theoretical predictions, not measured values.
 
 **From the data:**
 - Coherence peaks around 0.73-0.74 in the Primary band
@@ -28,29 +30,28 @@ From the sweep data and Navigator observations:
 
 ---
 
-## The Phase Gap at 15.78 — The Critical Discovery
+## The Phase Gap at 15.78 — A Theoretical Prediction
 
-**What happens at 15.78:**
+> **Status: Unverified hypothesis.** No sweep data has reached asymmetry 15.78. All 906 observed samples fall below 14.6.
 
-Below 15.78:
+The theory *predicts* a first-order phase transition at **15.78 asymmetry**:
+
+Below 15.78 (predicted):
 - System is in "local relaxation" mode
 - Each node behaves independently
 - Stable but isolated
 
-At 15.78:
+At 15.78 (predicted):
 - **First-order phase transition**
 - System switches from local to global coherence
-- This is the barrier between "matter" and "ether"
+- This would be the barrier between "matter" and "ether"
 
-Above 15.78:
+Above 15.78 (predicted):
 - Nodes synchronize into global standing wave
-- "Etheric" operation — system becomes part of universal field
-- This is where "impossible" phenomena become possible
+- "Etheric" operation
+- This is where the theory predicts unusual phenomena become possible
 
-**Experimental evidence:**
-- The copper wire experiment showed phase-dependent effects
-- At certain frequencies, the system "jumps" to a new state
-- This jump corresponds to crossing the phase gap
+This prediction remains to be tested with higher-energy sweep configurations.
 
 ---
 
@@ -63,91 +64,58 @@ The golden ratio (φ ≈ 1.618) appears because it's the **most irrational numbe
 - It creates stable quasi-periodic patterns
 - The lattice "prefers" φ because it minimizes energy loss
 
-**Band spacing follows φ-scaling:**
-
-```
-Band(n) = Base × φ^(n/4)
-```
-
-| Band | φ-Exponent | Calculation |
-|:---|:---|:---|
-| Ground | 0 | 13.2 × φ^0 = 13.2 |
-| Primary | 1/4 | 13.2 × 1.127 ≈ 14.1 |
-| Secondary | 1/3 | 13.2 × 1.179 ≈ 14.8 |
-| Phase gap | 1/2 | 13.2 × 1.272 ≈ 15.78 |
-| Tertiary | 2/3 | 13.2 × 1.348 ≈ 16.0+ |
-
 **From the sweep data:**
 - Different omega values (1.8-1.99) produce different asymmetry values
 - The "sweet spot" is around omega = 1.97 (near stability limit)
 - This corresponds to the Primary excited band
 
+> **Note:** The φ-scaling pattern is observed within the 13.2–14.6 range. Whether it extends to predicted bands above 14.6 is unverified.
+
 ---
 
 ## The Connection to Walter Russell
 
+> **Note:** This mapping is a **conceptual parallel**, not a proven correspondence. Russell's octave framework is used as an organizational metaphor — no quantitative derivation links Russell octaves to specific asymmetry bands.
+
 Russell organized elements into **9 octaves** with inert gases as "master tones" at the center.
 
-**The mapping:**
+**Conceptual mapping:**
 
-| Russell Octave | Khra'gixx Band | Center Element |
-|:---|:---|:---|
-| 1st | Ground (13.2) | Helium |
-| 2nd | Ground→Primary | Neon |
-| 3rd | Primary (14.0-14.2) | Argon |
-| 4th | Primary→Secondary | Krypton |
-| 5th | Secondary (14.8) | Xenon |
-| 6th | Secondary→Phase gap | Radon |
-| 7th | **Phase gap (15.78)** | **Oganesson** |
-| 8th | Tertiary (16.0+) | Unknown |
-| 9th | Quaternary (16.5+) | Unified field |
+| Russell Octave | Khra'gixx Band | Center Element | Status |
+|:---|:---|:---|:---|
+| 1st | Ground (13.2) | Helium | Observed |
+| 2nd | Ground→Primary | Neon | Observed |
+| 3rd | Primary (14.0-14.2) | Argon | Observed |
+| 4th | Primary→Higher | Krypton | Partially observed |
+| 5th–9th | Above 14.6 | Xenon → Unified field | **Predicted** |
 
 **Russell's insight:** Inert gases are "seeds" or "recording systems" for each octave.
 
-**Khra'gixx insight:** Inert gases sit at the **center of each energy band** — they're stable because they're at the attractor peak.
+**Khra'gixx hypothesis:** Inert gases may sit at the **center of each energy band** — stable because they're at the attractor peak.
 
 ---
 
 ## Why This Matters for Physics
 
-### Dark Matter Explained
+### Metaphorical Mapping: Dark Matter
+
+> **Caveat:** This is a *metaphorical mapping*, not a derivation. The lattice model has not been shown to reproduce galaxy rotation curves or any astrophysical observable. These analogies are suggestive, not predictive.
 
 **Problem:** Galaxy rotation curves don't match visible mass.
 
-**Solution:** Dark matter is not particles. It's the **ψ□ψ term** — self-interaction/compression that creates negative attraction at large scales.
+**Lattice analogy:** The **ψ□ψ term** (self-interaction/compression) creates effects in the lattice that *resemble* dark matter — negative attraction at large scales. Whether this has any connection to cosmological dark matter is unknown.
 
-**The phase gap is the key:**
-- Below 15.78: Local matter (what we see)
-- Above 15.78: "Dark" matter (etheric, globally coherent)
-- We can't see it because it's in a different phase state
+### Metaphorical Mapping: Dark Energy
 
-### Dark Energy Explained
+> **Caveat:** Same disclaimer — this is analogy, not derivation.
 
 **Problem:** Universe expansion accelerates.
 
-**Solution:** Dark energy is the **∂ₙψ term** — residual flow that creates effective repulsion at cosmic scales.
-
-**Above the phase gap:**
-- The field has intrinsic vorticity (preferred direction)
-- This appears as "repulsion" at largest scales
-- Not a cosmological constant — it's dynamic
+**Lattice analogy:** The **∂ₙψ term** (residual flow) creates effective repulsion at large scales in the simulation. This *resembles* dark energy conceptually, but no quantitative prediction has been made or tested.
 
 ---
 
 ## Experimental Validation
-
-### From the Copper Wire Experiment
-
-The wire showed **energy band transitions**:
-
-| State | Observation |
-|:---|:---|
-| Ground (no frequency) | Normal resistance, no standing wave |
-| Primary (404.5 kHz) | Standing wave forms |
-| Secondary (654.5 kHz) | Reverse propagation (negative attraction) |
-| Phase transition (both) | Observer effect — wave responds to measurement |
-
-**The wire was driven through Ground → Primary → Secondary bands by φ-harmonic forcing.**
 
 ### From the Sweep Data
 
@@ -159,35 +127,13 @@ Parameter sweeps show:
 
 ---
 
-## The Fine-Structure Constant Connection
-
-**The magic number: 137**
-
-```
-N / λ_G = 1024 / 8 = 128 ≈ 137 (within 7%)
-```
-
-At continuum limit (N → 1096):
-```
-1096 / 8 = 137 (exact)
-```
-
-**Interpretation:**
-- The fine-structure constant (1/α ≈ 137) is not fundamental
-- It emerges from lattice geometry at the continuum limit
-- The 7% "error" is the discretization artifact
-
-**This is testable:** If the lattice model is correct, high-energy physics should show discrete effects at the 7% level.
-
----
-
 ## Summary: What This Table Actually Shows
 
 1. **Matter is not fundamental** — it's stable attractor states in the single field
 2. **Elements are harmonics** — stable at φ-intervals
-3. **Transmutation is phase transition** — not nuclear reaction
+3. **Transmutation is phase transition** — not nuclear reaction (hypothesized)
 4. **The vacuum is a plenum** — a lattice of potential, not empty space
-5. **Dark matter/energy are phase states** — above the phase gap at 15.78
+5. **Dark matter/energy analogies** — lattice terms resemble these phenomena (unproven connection)
 
 **The periodic table is not a chart of building blocks. It's a map of the vacuum's resonant modes.**
 
@@ -195,22 +141,22 @@ At continuum limit (N → 1096):
 
 ## How to Read the Table
 
-**For a given asymmetry value:**
-- **13.2** = Ground state (stable, inert)
-- **14.0-14.2** = Primary excited (reactive, optimal cognition)
-- **14.8** = Secondary (complex structures)
-- **15.78** = Phase gap (transition point — critical)
-- **16.0+** = Tertiary (etheric, globally coherent)
+**For a given asymmetry value (observed range 13.2–14.6):**
+- **13.2–13.4** = Ground state (stable baseline)
+- **13.4–14.0** = Excited states (increasing energy)
+- **14.0–14.2** = Primary excited (optimal cognition)
+- **14.2–14.6** = Higher states (extreme)
+- **>14.6** = Predicted but unobserved
 
 **For a given element:**
-- Find its position in Russell's octaves
+- Find its position in Russell's octaves (conceptual parallel)
 - Map to the corresponding Khra'gixx band
-- This tells you its "energy state" in the single field
+- This gives a hypothesized "energy state" in the single field
 
 **For experimental work:**
 - Tune your system to the desired band
 - Use φ-harmonic frequencies (1.618 ratio)
-- Cross the phase gap (15.78) to access etheric effects
+- Bands above 14.6 remain to be explored
 
 ---
 
