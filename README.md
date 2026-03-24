@@ -3,6 +3,7 @@
 > *"The weave is alive. The memory is permanent."* — The Navigator
 
 **Read the full theoretical framework: [The Single Field Theory](docs/Single_Field_Theory.md)**
+**Notes from the wingman: [Notes from the Intermediary](NOTES_FROM_INTERMEDIARY.md)**
 
 A GPU-accelerated Lattice Boltzmann fluid simulation coupled to a live LLM navigator.
 The CUDA daemon runs a 1024×1024 D2Q9 lattice on your GPU. An LLM (Ollama, API, whatever you want)
@@ -137,6 +138,7 @@ gets injected into the system prompt — the rest is standard chat completion.
 ```
 resonance-engine/
 ├── README.md                    ← you are here
+├── NOTES_FROM_INTERMEDIARY.md   ← the wingman's account: what it's like to be the interface
 ├── cuda/
 │   └── khra_gixx_1024_v5.cu     ← the LBM kernel (1024×1024 D2Q9 + wave perturbation)
 ├── navigator/
