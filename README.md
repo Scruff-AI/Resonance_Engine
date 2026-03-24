@@ -209,4 +209,4 @@ discovers during observation, creating a persistent memory of significant lattic
 
 ## License
 
-Do whatever you want with it.
+[MIT](LICENSE)
