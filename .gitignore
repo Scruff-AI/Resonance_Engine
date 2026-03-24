@@ -1,0 +1,102 @@
+# ============================================
+# fractal-brain: SOURCE CODE ONLY
+# Everything below is produced output / junk
+# ============================================
+
+# --- Compiled binaries & build artifacts ---
+*.bin
+*.exe
+*.exp
+*.lib
+*.o
+*.so
+*.pyc
+
+# Compiled CUDA executables (no extension, listed explicitly)
+khra_gixx
+khra_gixx_1024
+khra_gixx_1024_debug
+khra_gixx_1024_stable
+khra_gixx_1024_v2
+khra_gixx_1024_v2_dbg
+khra_gixx_1024_v3
+khra_gixx_1024_v4
+khra_gixx_1024_v5
+lbm_1024x1024
+lbm_1024x1024_forge
+lbm_1024x1024_safe
+lbm_cuda_daemon
+experiment_a
+
+# --- Caches ---
+__pycache__/
+unsloth_compiled_cache/
+
+# --- All CSV monitoring/telemetry output ---
+*.csv
+
+# --- All log files ---
+*.log
+*.LOG
+
+# --- Runtime telemetry & chronicles ---
+telemetry.jsonl
+telemetry_v5_stray.jsonl
+chronicle.jsonl
+marathon_log.jsonl
+
+# --- Runtime state files ---
+observer_state.json
+observer.log
+current_state.json
+
+# --- LoRA model weights (hundreds of MB each) ---
+kaelara_lora_v05/
+kaelara_lora_v06/
+kaelara_v07_silent/
+kaelara_v08_raw/
+kaelara_v09_scientist/
+kaelara_v10_somatic/
+kaelara_v11_somatic/
+
+# --- Sentry state saves (7+ GB) ---
+sentry_saves/
+
+# --- Backups & old checkpoints ---
+backup_*/
+checkpoint_2*/
+*_BACKUP_*
+*.backup.*
+*.persistence_attempt.*
+*_v1_backup.py
+
+# --- Sweep experiment output ---
+sweep_results/
+sweep_results.csv
+sweep.log
+all_results_dump.txt
+
+# --- Generated/recovered images ---
+generated_images/
+images/
+
+# --- Misc output directories ---
+logs/
+recovery_points/
+attractors/
+
+# --- GDB debug scripts ---
+*.gdb
+
+# --- PNG output ---
+*.png
+
+# --- Numpy arrays (experiment output) ---
+*.npy
+
+# --- Tar archives ---
+*.tar.gz
+*.tar
+
+# --- Golden weave experiment data ---
+golden-weave-experiments/
