@@ -241,26 +241,23 @@ resonance-engine/
 ├── cuda/
 │   └── khra_gixx_1024_v5.cu     ← the LBM kernel (1024×1024 D2Q9 + wave perturbation)
 ├── navigator/
-│   ├── lattice_observer.py      ← THE navigator (ZMQ subscriber + Ollama + HTTP API)
-│   ├── golden_weave_memory.py   ← phi-ratio attractor memory system
-│   ├── golden_weave_sidecar.py  ← experiment runner (inject_density tests)
-│   ├── memory_extension_server.py ← memory API extension
-│   ├── lbm_ollama_bridge.py     ← standalone Ollama bridge (simpler alternative)
-│   ├── eternal_scout_daemon.py  ← autonomous exploration loop
-│   ├── mock_lbm_daemon.py       ← fake daemon for testing without GPU
-│   ├── zmq_raw_bridge.py        ← ZMQ debug tool
-│   ├── telemetry_server.py      ← HTTP telemetry endpoint
-│   ├── sentry_monitor.py        ← auto-checkpoint on anomalies
-│   └── lbm_modelfile            ← Ollama model definition (system prompt)
+│   ├── lattice_observer.py        ← THE navigator (ZMQ subscriber + Ollama + HTTP API)
+│   ├── golden_weave_memory.py     ← phi-ratio attractor memory system
+│   ├── memory_extension_server.py ← memory API extension (port 28821)
+│   ├── mock_lbm_daemon.py         ← fake daemon for testing without GPU
+│   ├── telemetry_server.py        ← HTTP telemetry endpoint (port 28811)
+│   ├── sentry_monitor.py          ← auto-checkpoint on anomalies
+│   ├── zmq_raw_bridge.py          ← ZMQ debug tool
+│   └── lbm_modelfile              ← Ollama model definition (system prompt)
 ├── scripts/
-│   ├── setup_wsl_cuda.sh        ← one-time WSL + CUDA + deps installer
-│   ├── compile.sh               ← compile the CUDA kernel
-│   ├── start.sh                 ← start daemon + navigator
-│   ├── launch.sh                ← start daemon only
-│   └── verify_install.sh        ← check your install
+│   ├── setup_wsl_cuda.sh          ← one-time WSL + CUDA + deps installer
+│   ├── compile.sh                 ← compile the CUDA kernel
+│   ├── start.sh                   ← start daemon + navigator
+│   ├── launch.sh                  ← start daemon only
+│   └── verify_install.sh          ← check your install
 ├── docs/
-│   └── SYSTEM_MANUAL.md         ← detailed system internals
-└── archive/                     ← historical experiments, old kernels, inquiry scripts
+│   ├── SYSTEM_MANUAL.md           ← detailed system internals
+│   └── KHRAGIXX_HARD_PHYSICS.md   ← dark matter, dark energy, Navier-Stokes implications
 ```
 
 ---

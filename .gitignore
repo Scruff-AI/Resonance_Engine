@@ -105,3 +105,6 @@ golden-weave-experiments/
 # --- Training / LoRA (deprecated) ---
 training/
 *.jsonl
+
+# --- Archive (removed) ---
+archive/

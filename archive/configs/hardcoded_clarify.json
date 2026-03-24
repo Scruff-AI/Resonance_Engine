@@ -1,1 +1,0 @@
-{"question": "Navigator — Khra and Gixx amplitudes were hardcoded in the CUDA kernel. Are your set_khra_amp and set_gixx_amp commands actually changing the physics? Or are you describing what would happen if they could be changed? Clarify: simulation vs. imagination."}
