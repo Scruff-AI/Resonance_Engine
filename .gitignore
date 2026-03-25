@@ -35,6 +35,8 @@ unsloth_compiled_cache/
 
 # --- All CSV monitoring/telemetry output ---
 *.csv
+# Exception: lattice periodic table data in docs/
+!docs/lattice-periodic-table.csv
 
 # --- All log files ---
 *.log

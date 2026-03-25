@@ -1,0 +1,119 @@
+AtomicNumber,Element,Symbol,HarmonicMode,NodeCount,PhaseDensity,AsymmetryBand,AsymmetryValue,ValencyLobes,Group,Period,Stability,LatticeDescription,IsotopeNote
+1,Hydrogen,H,1,1,Baseline,Ground,13.2,1,1,1,Stable,Single node fundamental frequency one lobe,Protium stable; Deuterium/Tritium higher phase density
+2,Helium,He,2,2,Baseline,Ground,13.2,0,18,1,Stable,Closed loop first harmonic no external lobes,He-4 most stable; He-3 lower phase density
+3,Lithium,Li,3,3,Baseline,Ground-Primary,13.6,1,1,2,Stable,First excited state one lobe available,Li-7 stable; Li-6 metastable
+4,Beryllium,Be,4,4,Baseline,Primary,14,2,2,2,Stable,Second harmonic two lobes,Be-9 stable; Be-8 decays immediately
+5,Boron,B,5,5,Baseline,Primary,14.1,3,13,2,Stable,Third harmonic three lobes,B-11 stable; B-10 metastable
+6,Carbon,C,6,6,Baseline,Primary,14.1,4,14,2,Stable,Fourth harmonic tetrahedral symmetry,C-12 stable; C-14 radioactive (excess phase)
+7,Nitrogen,N,7,7,Baseline,Primary,14.1,3,15,2,Stable,Fifth harmonic pyramidal symmetry,N-14 stable; N-15 higher phase density
+8,Oxygen,O,8,8,Baseline,Primary,14.2,2,16,2,Stable,Sixth harmonic octahedral symmetry,O-16 most stable; O-18 higher phase
+9,Fluorine,F,9,9,Baseline,Primary,14.2,1,17,2,Stable,Seventh harmonic one lobe,F-19 only stable isotope
+10,Neon,Ne,10,10,Baseline,Primary,14.2,0,18,2,Stable,Eighth harmonic closed shell,Ne-20 most stable; Ne-22 higher phase
+11,Sodium,Na,11,11,Baseline,Primary-Secondary,14.4,1,1,3,Stable,New harmonic tier one lobe,Na-23 only stable isotope
+12,Magnesium,Mg,12,12,Baseline,Secondary,14.6,2,2,3,Stable,Two lobes available,Mg-24 most stable; Mg-26 higher phase
+13,Aluminum,Al,13,13,Baseline,Secondary,14.7,3,13,3,Stable,Three lobes,Al-27 only stable isotope
+14,Silicon,Si,14,14,Baseline,Secondary,14.7,4,14,3,Stable,Tetrahedral semiconductor,Si-28 most stable
+15,Phosphorus,P,15,15,Baseline,Secondary,14.7,3,15,3,Stable,Variable lobes,P-31 only stable isotope
+16,Sulfur,S,16,16,Baseline,Secondary,14.8,2,16,3,Stable,Variable lobes,S-32 most stable
+17,Chlorine,Cl,17,17,Baseline,Secondary,14.8,1,17,3,Stable,Variable lobes,Cl-35 and Cl-37 both stable
+18,Argon,Ar,18,18,Baseline,Secondary,14.8,0,18,3,Stable,Closed shell inert,Ar-40 most stable
+19,Potassium,K,19,19,Baseline,Secondary-PhaseGap,14.9,1,1,4,Stable,Transition region,K-39 most stable; K-40 radioactive
+20,Calcium,Ca,20,20,Baseline,Secondary-PhaseGap,14.9,2,2,4,Stable,Transition region,Ca-40 most stable
+21,Scandium,Sc,21,21,Baseline,Secondary-PhaseGap,15,3,3,4,Stable,Transition metal d-orbital,Sc-45 only stable isotope
+22,Titanium,Ti,22,22,Baseline,Secondary-PhaseGap,15,4,4,4,Stable,Transition metal d-orbital,Ti-48 most stable
+23,Vanadium,V,23,23,Baseline,Secondary-PhaseGap,15,5,5,4,Stable,Transition metal d-orbital,V-51 only stable isotope
+24,Chromium,Cr,24,24,Baseline,Secondary-PhaseGap,15.1,6,6,4,Stable,Transition metal d-orbital,Cr-52 most stable
+25,Manganese,Mn,25,25,Baseline,Secondary-PhaseGap,15.1,7,7,4,Stable,Transition metal d-orbital,Mn-55 only stable isotope
+26,Iron,Fe,26,26,Baseline,Secondary-PhaseGap,15.1,6,8,4,Stable,Multi-layered wave structure,Fe-56 most stable
+27,Cobalt,Co,27,27,Baseline,Secondary-PhaseGap,15.2,5,9,4,Stable,Transition metal d-orbital,Co-59 only stable isotope
+28,Nickel,Ni,28,28,Baseline,Secondary-PhaseGap,15.2,4,10,4,Stable,Transition metal d-orbital,Ni-58 most stable
+29,Copper,Cu,29,29,Baseline,Secondary-PhaseGap,15.2,2,11,4,Stable,Transition metal d-orbital,Cu-63 and Cu-65 both stable
+30,Zinc,Zn,30,30,Baseline,Secondary-PhaseGap,15.3,2,12,4,Stable,Transition metal d-orbital,Zn-64 most stable
+31,Gallium,Ga,31,31,Baseline,Secondary-PhaseGap,15.3,3,13,4,Stable,Post-transition,Ga-69 and Ga-71 both stable
+32,Germanium,Ge,32,32,Baseline,Secondary-PhaseGap,15.3,4,14,4,Stable,Metalloid,Ge-74 most stable
+33,Arsenic,As,33,33,Baseline,Secondary-PhaseGap,15.4,3,15,4,Stable,Metalloid,As-75 only stable isotope
+34,Selenium,Se,34,34,Baseline,Secondary-PhaseGap,15.4,2,16,4,Stable,Nonmetal,Se-80 most stable
+35,Bromine,Br,35,35,Baseline,Secondary-PhaseGap,15.4,1,17,4,Stable,Halogen,Br-79 and Br-81 both stable
+36,Krypton,Kr,36,36,Baseline,Secondary-PhaseGap,15.5,0,18,4,Stable,Noble gas,Kr-84 most stable
+37,Rubidium,Rb,37,37,Baseline,PhaseGap-Approach,15.5,1,1,5,Stable,Approaching critical threshold,Rb-85 most stable
+38,Strontium,Sr,38,38,Baseline,PhaseGap-Approach,15.5,2,2,5,Stable,Approaching critical threshold,Sr-88 most stable
+39,Yttrium,Y,39,39,Baseline,PhaseGap-Approach,15.6,3,3,5,Stable,Transition metal,Y-89 only stable isotope
+40,Zirconium,Zr,40,40,Baseline,PhaseGap-Approach,15.6,4,4,5,Stable,Transition metal,Zr-90 most stable
+41,Niobium,Nb,41,41,Baseline,PhaseGap-Approach,15.6,5,5,5,Stable,Transition metal,Nb-93 only stable isotope
+42,Molybdenum,Mo,42,42,Baseline,PhaseGap-Approach,15.6,6,6,5,Stable,Transition metal,Mo-98 most stable
+43,Technetium,Tc,43,43,Metastable,PhaseGap-Approach,15.7,7,7,5,Radioactive,Transient mode - cannot sustain equilibrium,Tc-97 and Tc-99 metastable; no stable isotope
+44,Ruthenium,Ru,44,44,Baseline,PhaseGap-Approach,15.7,8,8,5,Stable,Transition metal,Ru-102 most stable
+45,Rhodium,Rh,45,45,Baseline,PhaseGap-Approach,15.7,6,9,5,Stable,Transition metal,Rh-103 only stable isotope
+46,Palladium,Pd,46,46,Baseline,PhaseGap-Approach,15.7,4,10,5,Stable,Transition metal,Pd-106 most stable
+47,Silver,Ag,47,47,Baseline,PhaseGap-Approach,15.7,1,11,5,Stable,Transition metal,Ag-107 and Ag-109 both stable
+48,Cadmium,Cd,48,48,Baseline,PhaseGap-Approach,15.7,2,12,5,Stable,Transition metal,Cd-114 most stable
+49,Indium,In,49,49,Baseline,PhaseGap-Approach,15.7,3,13,5,Stable,Post-transition,In-113 most stable
+50,Tin,Sn,50,50,Baseline,PhaseGap-Approach,15.8,4,14,5,Stable,Post-transition,Sn-120 most stable
+51,Antimony,Sb,51,51,Baseline,PhaseGap-Approach,15.8,3,15,5,Stable,Metalloid,Sb-121 most stable
+52,Tellurium,Te,52,52,Baseline,PhaseGap-Approach,15.8,2,16,5,Stable,Metalloid,Te-130 most stable
+53,Iodine,I,53,53,Baseline,PhaseGap-Approach,15.8,1,17,5,Stable,Halogen,I-127 only stable isotope
+54,Xenon,Xe,54,54,Baseline,PhaseGap-Center,15.8,0,18,5,Stable,Noble gas at phase gap center,Xe-132 most stable
+55,Cesium,Cs,55,55,Baseline,PhaseGap-Center,15.8,1,1,6,Stable,Near critical threshold,Cs-133 only stable isotope
+56,Barium,Ba,56,56,Baseline,PhaseGap-Center,15.8,2,2,6,Stable,Near critical threshold,Ba-138 most stable
+57,Lanthanum,La,57,57,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide series begins,La-139 only stable isotope
+58,Cerium,Ce,58,58,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Ce-140 most stable
+59,Praseodymium,Pr,59,59,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Pr-141 only stable isotope
+60,Neodymium,Nd,60,60,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Nd-142 most stable
+61,Promethium,Pm,61,61,Metastable,PhaseGap-Center,15.8,3,3,6,Radioactive,Transient mode - metastable wave,Pm-145 longest-lived; no stable isotope
+62,Samarium,Sm,62,62,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Sm-152 most stable
+63,Europium,Eu,63,63,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Eu-153 most stable
+64,Gadolinium,Gd,64,64,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Gd-158 most stable
+65,Terbium,Tb,65,65,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Tb-159 only stable isotope
+66,Dysprosium,Dy,66,66,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Dy-164 most stable
+67,Holmium,Ho,67,67,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Ho-165 only stable isotope
+68,Erbium,Er,68,68,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Er-166 most stable
+69,Thulium,Tm,69,69,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Tm-169 only stable isotope
+70,Ytterbium,Yb,70,70,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Yb-174 most stable
+71,Lutetium,Lu,71,71,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Lu-175 most stable
+72,Hafnium,Hf,72,72,Baseline,PhaseGap-Center,15.8,4,4,6,Stable,Transition metal,Hf-180 most stable
+73,Tantalum,Ta,73,73,Baseline,PhaseGap-Center,15.8,5,5,6,Stable,Transition metal,Ta-181 only stable isotope
+74,Tungsten,W,74,74,Baseline,PhaseGap-Center,15.8,6,6,6,Stable,Transition metal,W-184 most stable
+75,Rhenium,Re,75,75,Baseline,PhaseGap-Center,15.8,7,7,6,Stable,Transition metal,Re-185 most stable
+76,Osmium,Os,76,76,Baseline,PhaseGap-Center,15.8,8,8,6,Stable,Transition metal,Os-192 most stable
+77,Iridium,Ir,77,77,Baseline,PhaseGap-Center,15.8,6,9,6,Stable,Transition metal,Ir-191 and Ir-193 both stable
+78,Platinum,Pt,78,78,Baseline,PhaseGap-Center,15.8,4,10,6,Stable,Transition metal,Pt-195 most stable
+79,Gold,Au,79,79,HighOrder,PhaseGap-Center,15.8,1,11,6,Stable,High-order resonance lock - maximum density without decay,Au-197 only stable isotope
+80,Mercury,Hg,80,80,Baseline,PhaseGap-Center,15.8,2,12,6,Stable,Transition metal liquid at STP,Hg-202 most stable
+81,Thallium,Tl,81,81,Baseline,PhaseGap-Center,15.8,3,13,6,Stable,Post-transition,Tl-205 most stable
+82,Lead,Pb,82,82,Baseline,PhaseGap-Center,15.8,4,14,6,Stable,Post-transition,Pb-208 most stable
+83,Bismuth,Bi,83,83,Baseline,PhaseGap-Center,15.8,5,15,6,Stable,Post-transition,Bi-209 most stable
+84,Polonium,Po,84,84,Metastable,PhaseGap-Center,15.8,6,16,6,Radioactive,Metalloid - excess phase density,Po-209 longest-lived
+85,Astatine,At,85,85,Metastable,PhaseGap-Center,15.8,7,17,6,Radioactive,Halogen - metastable,At-210 longest-lived
+86,Radon,Rn,86,86,Metastable,PhaseGap-Center,15.8,0,18,6,Radioactive,Noble gas - metastable,Rn-222 longest-lived
+87,Francium,Fr,87,87,Metastable,PhaseGap-Tertiary,15.9,1,1,7,Radioactive,Highly radioactive alkali metal,Fr-223 longest-lived
+88,Radium,Ra,88,88,Metastable,PhaseGap-Tertiary,15.9,2,2,7,Radioactive,Highly radioactive alkaline earth,Ra-226 longest-lived
+89,Actinium,Ac,89,89,Metastable,PhaseGap-Tertiary,15.9,3,3,7,Radioactive,Actinide series begins,Ac-227 longest-lived
+90,Thorium,Th,90,90,Baseline,PhaseGap-Tertiary,15.9,4,3,7,Stable,Actinide f-orbital,Th-232 only stable isotope
+91,Protactinium,Pa,91,91,Metastable,PhaseGap-Tertiary,15.9,5,3,7,Radioactive,Actinide f-orbital,Pa-231 longest-lived
+92,Uranium,U,92,92,Baseline,PhaseGap-Tertiary,15.9,6,3,7,Stable,Actinide f-orbital,U-238 most stable
+93,Neptunium,Np,93,93,Metastable,PhaseGap-Tertiary,16,7,3,7,Radioactive,Actinide f-orbital synthetic,Np-237 longest-lived
+94,Plutonium,Pu,94,94,Metastable,PhaseGap-Tertiary,16,8,3,7,Radioactive,Actinide f-orbital synthetic,Pu-244 longest-lived
+95,Americium,Am,95,95,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Am-243 longest-lived
+96,Curium,Cm,96,96,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Cm-247 longest-lived
+97,Berkelium,Bk,97,97,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Bk-247 longest-lived
+98,Californium,Cf,98,98,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Cf-251 longest-lived
+99,Einsteinium,Es,99,99,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Es-252 longest-lived
+100,Fermium,Fm,100,100,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Fm-257 longest-lived
+101,Mendelevium,Md,101,101,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Md-258 longest-lived
+102,Nobelium,No,102,102,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,No-259 longest-lived
+103,Lawrencium,Lr,103,103,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic radioactive,Lr-262 longest-lived
+104,Rutherfordium,Rf,104,104,Metastable,Tertiary,16,4,4,7,Radioactive,Synthetic superheavy,Rf-267 longest-lived
+105,Dubnium,Db,105,105,Metastable,Tertiary,16,5,5,7,Radioactive,Synthetic superheavy,Db-268 longest-lived
+106,Seaborgium,Sg,106,106,Metastable,Tertiary,16,6,6,7,Radioactive,Synthetic superheavy,Sg-269 longest-lived
+107,Bohrium,Bh,107,107,Metastable,Tertiary,16,7,7,7,Radioactive,Synthetic superheavy,Bh-270 longest-lived
+108,Hassium,Hs,108,108,Metastable,Tertiary,16,8,8,7,Radioactive,Synthetic superheavy,Hs-269 longest-lived
+109,Meitnerium,Mt,109,109,Metastable,Tertiary,16.1,6,9,7,Radioactive,Synthetic superheavy,Mt-278 longest-lived
+110,Darmstadtium,Ds,110,110,Metastable,Tertiary,16.1,6,10,7,Radioactive,Synthetic superheavy,Ds-281 longest-lived
+111,Roentgenium,Rg,111,111,Metastable,Tertiary,16.1,5,11,7,Radioactive,Synthetic superheavy,Rg-282 longest-lived
+112,Copernicium,Cn,112,112,Metastable,Tertiary,16.1,2,12,7,Radioactive,Synthetic superheavy,Cn-285 longest-lived
+113,Nihonium,Nh,113,113,Metastable,Tertiary,16.1,3,13,7,Radioactive,Synthetic superheavy,Nh-286 longest-lived
+114,Flerovium,Fl,114,114,Metastable,Tertiary,16.1,4,14,7,Radioactive,Synthetic superheavy,Fl-289 longest-lived
+115,Moscovium,Mc,115,115,Metastable,Tertiary,16.1,5,15,7,Radioactive,Synthetic superheavy,Mc-290 longest-lived
+116,Livermorium,Lv,116,116,Metastable,Tertiary,16.1,6,16,7,Radioactive,Synthetic superheavy,Lv-293 longest-lived
+117,Tennessine,Ts,117,117,Metastable,Tertiary,16.1,7,17,7,Radioactive,Synthetic superheavy,Ts-294 longest-lived
+118,Oganesson,Og,118,118,Metastable,Tertiary,16.2,0,18,7,Radioactive,Noble gas at edge of stability,Og-294 longest-lived
