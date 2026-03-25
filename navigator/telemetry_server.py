@@ -1,5 +1,5 @@
 # telemetry_server.py
-# HTTP Telemetry Endpoint for Fractal Brain (no Flask)
+# HTTP Telemetry Endpoint for Resonance Engine (no Flask)
 
 import zmq
 import json
@@ -7,7 +7,7 @@ import threading
 import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# ZMQ connection to fractal brain daemon
+# ZMQ connection to Resonance Engine daemon
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
 socket.connect("tcp://localhost:5556")
@@ -53,7 +53,7 @@ class TelemetryHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({
                 "status": "ok",
-                "source": "beast-fractal-brain",
+                "source": "beast-resonance-engine",
                 "grid": latest_telemetry["grid"],
                 "cycle": latest_telemetry["cycle"]
             }).encode())

@@ -11,7 +11,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 from pathlib import Path
 
-sys.path.insert(0, '/mnt/d/fractal-brain/beast-build')
+sys.path.insert(0, '/mnt/d/Resonance_Engine/beast-build')
 
 try:
     from golden_weave_memory import (
@@ -30,7 +30,7 @@ except ImportError as e:
 # Configuration
 OBSERVER_URL = "http://127.0.0.1:28820"
 EXTENSION_PORT = 28821
-ATTRACTOR_DIR = "/mnt/d/fractal-brain/beast-build/attractors"
+ATTRACTOR_DIR = "/mnt/d/Resonance_Engine/beast-build/attractors"
 
 # Initialize memory system
 memory_system = GoldenWeaveMemorySystem(

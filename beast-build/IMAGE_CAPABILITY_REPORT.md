@@ -29,7 +29,7 @@ Image generation via **Nano Banana Pro** (Google Gemini 2.5 Flash Image API) is 
                                          └─────┬──────────────┘
                                                │ saves PNG
                                                ▼
-                                    D:\fractal-brain\beast-build\
+                                    D:\Resonance_Engine\beast-build\
                                         generated_images\
 ```
 
@@ -64,7 +64,7 @@ Image generation via **Nano Banana Pro** (Google Gemini 2.5 Flash Image API) is 
 
 ```json
 {
-  "path": "/mnt/d/fractal-brain/beast-build/generated_images/lattice_viz_001.png",
+  "path": "/mnt/d/Resonance_Engine/beast-build/generated_images/lattice_viz_001.png",
   "filename": "lattice_viz_001.png",
   "model": "gemini-2.5-flash-image",
   "elapsed_s": 6.3,
@@ -91,9 +91,9 @@ Image generation via **Nano Banana Pro** (Google Gemini 2.5 Flash Image API) is 
 | Observer /generate_image endpoint | gemini-2.5-flash-image | ✅ 1024×1024 PNG | 6.3s | 1,597 KB |
 
 All three test images verified on disk:
-- `D:\fractal-brain\beast-build\test_nanobana.png` (1,519 KB)
-- `D:\fractal-brain\beast-build\test_nanobana_e2e.png` (1,664 KB)
-- `D:\fractal-brain\beast-build\generated_images\test_observer_gen.png` (1,597 KB)
+- `D:\Resonance_Engine\beast-build\test_nanobana.png` (1,519 KB)
+- `D:\Resonance_Engine\beast-build\test_nanobana_e2e.png` (1,664 KB)
+- `D:\Resonance_Engine\beast-build\generated_images\test_observer_gen.png` (1,597 KB)
 
 ---
 
@@ -108,7 +108,7 @@ All three test images verified on disk:
 | Cost              | ~$0.02–0.04 per image (pay-as-you-go)  |
 | VRAM Impact       | **ZERO** (cloud API, not local GPU)    |
 | Billing Project   | gen-lang-client-0149282988             |
-| Output Directory  | D:\fractal-brain\beast-build\generated_images\ |
+| Output Directory  | D:\Resonance_Engine\beast-build\generated_images\ |
 
 ---
 

@@ -77,7 +77,7 @@ wsl -d Ubuntu -e bash -c "pkill -f khra_gixx_1024; pkill -f lbm_"
 ### How to rebuild after code changes
 
 ```bash
-wsl -d Ubuntu -e bash /mnt/d/fractal-brain/beast-build/compile_khra_1024.sh
+wsl -d Ubuntu -e bash /mnt/d/Resonance_Engine/beast-build/compile_khra_1024.sh
 ```
 
 Requires: CUDA 12.6 toolkit, libzmq3-dev. Architecture: sm_89 (RTX 4090).
@@ -147,7 +147,7 @@ else:
 
 4. **File paths: Windows Python uses Windows paths.**
    If your Python runs on Windows, write to `"current_state.json"` (relative)
-   or `"D:\\fractal-brain\\beast-build\\output.json"` (absolute Windows path).
+   or `"D:\\Resonance_Engine\\beast-build\\output.json"` (absolute Windows path).
    NEVER use `/mnt/d/...` paths in Windows Python — that's a WSL path.
 
 5. **ONE daemon on port 5556 at a time.**
@@ -231,7 +231,7 @@ match the pattern in "The correct ZMQ subscriber pattern" above.
 It doesn't. Run it in foreground to see output:
 ```bash
 wsl -d Ubuntu -e bash -c "
-  cd /mnt/d/fractal-brain/beast-build &&
+  cd /mnt/d/Resonance_Engine/beast-build &&
   export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64:/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH &&
   ./khra_gixx_1024_stable 2>&1
 "

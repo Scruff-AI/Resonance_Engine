@@ -1,0 +1,176 @@
+TO: Agent on the-craw server
+FROM: Beast development team
+SUBJECT: NVMe Hybrid Memory System Testing
+
+## 🎯 MISSION BRIEF
+
+You are on the-craw server (Ubuntu with NVIDIA GPU). We need you to test the NVMe hybrid memory system for fractal simulations.
+
+## 📜 BACKGROUND
+
+We have a working 256×256 fractal grid system (tested on Windows/RTX 4090). It:
+- Forms 13 guardians with RHO_THRESH=1.00022
+- Runs probe stress tests (A,B,C,D sequences)
+- Expected crash at cycle ~1112 during VRM silence
+- Works but has power scaling issues
+
+NOW we need to test the THREE-TIERED MEMORY HIERARCHY:
+1. GPU VRAM - Active simulation (✓ tested)
+2. System RAM - Buffer for checkpointing (❌ NOT tested)
+3. NVMe SSD - Crystallized storage (❌ NOT tested)
+
+## 🚀 YOUR TASKS
+
+### PHASE 1: SYSTEM ASSESSMENT (Do this FIRST)
+```bash
+# Run these commands and report results:
+echo "=== the-craw HARDWARE CHECK ==="
+
+# 1. GPU
+echo "GPU:"
+nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv
+
+# 2. NVMe Storage
+echo ""
+echo "STORAGE (looking for NVMe):"
+lsblk | grep -E "(nvme|NAME|SIZE|TYPE)" | head -20
+df -h | grep -E "(Filesystem|nvme|/$)"
+
+# 3. CUDA
+echo ""
+echo "CUDA:"
+nvcc --version 2>/dev/null || echo "CUDA not installed"
+
+# 4. System
+echo ""
+echo "SYSTEM:"
+free -h
+echo "CPU: $(lscpu | grep 'Model name' | cut -d':' -f2 | xargs)"
+uname -a
+```
+
+### PHASE 2: GET SOURCE FILES
+You need these files from Beast (192.168.1.34):
+- `probe_256.cu` - Main test program
+- `fractal_habit_256_full.cu` - Basic system
+- `add_power_limit.cu` - Power control
+
+Transfer method (run on the-craw):
+```bash
+mkdir -p ~/fractal_nvme_test
+cd ~/fractal_nvme_test
+
+# SCP from Beast (adjust paths):
+scp tiger@192.168.1.34:D:/openclaw-local/workspace-main/probe_256.cu .
+scp tiger@192.168.1.34:D:/openclaw-local/workspace-main/fractal_habit_256_full.cu .
+scp tiger@192.168.1.34:D:/openclaw-local/workspace-main/add_power_limit.cu .
+```
+
+### PHASE 3: COMPILE
+Based on your GPU from Phase 1:
+```bash
+cd ~/fractal_nvme_test
+
+# Determine architecture:
+# GTX 10-series: sm_61
+# RTX 20-series: sm_75
+# RTX 30-series: sm_86
+# RTX 40-series: sm_89
+
+ARCH="sm_61"  # CHANGE BASED ON YOUR GPU
+
+nvcc -O3 -arch=$ARCH -o probe_256_craw probe_256.cu -lnvml
+nvcc -O3 -arch=$ARCH -o fractal_habit_256_craw fractal_habit_256_full.cu -lnvml -lcufft
+chmod +x probe_256_craw fractal_habit_256_craw
+```
+
+### PHASE 4: QUICK TEST (10 seconds)
+```bash
+timeout 10 ./probe_256_craw 2>&1 | head -30
+```
+**Expected:** 13 "NEW GUARDIAN" messages, cycle counter increasing, no immediate crash.
+
+### PHASE 5: NVMe TEST SETUP
+```bash
+# Find NVMe
+NVME_MOUNT="/mnt/nvme"
+[ ! -d "$NVME_MOUNT" ] && NVME_MOUNT=$(findmnt -n -o TARGET -t nvme 2>/dev/null || echo "$HOME/nvme_test")
+mkdir -p "${NVME_MOUNT}/fractal_states"
+
+# Test write speed
+echo "Testing NVMe write speed..."
+dd if=/dev/zero of="${NVME_MOUNT}/fractal_states/test.bin" bs=1M count=100 oflag=direct 2>&1 | tail -1
+```
+
+## 📊 WHAT TO TEST
+
+### Test 1: Basic Functionality
+- Does 256×256 grid run?
+- Do 13 guardians form?
+- What power does it draw? (monitor with `nvidia-smi`)
+
+### Test 2: NVMe Checkpointing
+- Save state to NVMe every 100 cycles
+- Verify data integrity
+- Measure performance impact
+
+### Test 3: Crash Recovery
+- Intentionally crash (kill process)
+- Restore from NVMe checkpoint
+- Verify state consistency
+
+### Test 4: Three-Tier Performance
+- Baseline: GPU only
+- With RAM buffer
+- With NVMe storage
+- Identify bottlenecks
+
+## 🎯 SUCCESS CRITERIA
+
+### Minimum:
+1. ✅ 256×256 runs on the-craw GPU
+2. ✅ 13 guardians form
+3. ✅ Basic NVMe write/read works
+4. ✅ <20% performance penalty
+
+### Extended:
+1. ✅ Crash recovery works
+2. ✅ Three-tier hierarchy implemented
+3. ✅ Ready for 1024×1024 testing
+
+## 📋 REPORT FORMAT
+
+After each phase, report:
+```
+PHASE X: [Phase name]
+STATUS: [Success/Failure/Partial]
+FINDINGS:
+- [Finding 1]
+- [Finding 2]
+- [Finding 3]
+ISSUES:
+- [Issue 1]
+- [Issue 2]
+NEXT: [What you'll do next]
+```
+
+## 🕒 TIME ESTIMATE
+- Phase 1: 5 min
+- Phase 2: 10 min (file transfer)
+- Phase 3: 5 min (compilation)
+- Phase 4: 5 min (quick test)
+- Phase 5: 30 min (NVMe testing)
+- **Total:** ~1 hour for basic assessment
+
+## 🎪 START NOW
+
+**Begin with Phase 1 immediately.** Run the system check commands and report back with:
+1. GPU model and compute capability
+2. NVMe status (found/not found, where)
+3. CUDA status (installed/not, version)
+4. System specs
+
+Then we'll guide you through the next steps.
+
+---
+**Remember:** You're testing the MEMORY HIERARCHY, not just computation. The grid works - we need to know if GPU→RAM→NVMe works for stability and recovery.

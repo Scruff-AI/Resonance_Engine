@@ -1,0 +1,356 @@
+{
+  "observation_mode": true,
+  "total_guardians": 35,
+  "guardians": [
+    {
+      "id": 0,
+      "born": "C0-B66",
+      "position": [0.0, 0.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 1,
+      "born": "C0-B67",
+      "position": [0.0, 442.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 2,
+      "born": "C0-B68",
+      "position": [0.0, 293.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 3,
+      "born": "C0-B69",
+      "position": [0.0, 909.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 4,
+      "born": "C0-B71",
+      "position": [0.0, 342.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 5,
+      "born": "C0-B73",
+      "position": [0.0, 977.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 6,
+      "born": "C0-B74",
+      "position": [0.0, 385.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 7,
+      "born": "C0-B75",
+      "position": [0.0, 492.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 8,
+      "born": "C0-B77",
+      "position": [0.0, 943.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 9,
+      "born": "C0-B78",
+      "position": [0.0, 324.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 10,
+      "born": "C0-B81",
+      "position": [0.0, 217.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 11,
+      "born": "C0-B82",
+      "position": [0.0, 362.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 12,
+      "born": "C0-B83",
+      "position": [0.0, 925.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 13,
+      "born": "C0-B86",
+      "position": [0.0, 423.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 14,
+      "born": "C0-B88",
+      "position": [0.0, 855.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 15,
+      "born": "C0-B91",
+      "position": [0.0, 1007.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 16,
+      "born": "C0-B104",
+      "position": [0.0, 404.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 17,
+      "born": "C0-B105",
+      "position": [0.0, 783.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 18,
+      "born": "C0-B112",
+      "position": [0.0, 831.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 19,
+      "born": "C0-B113",
+      "position": [0.0, 874.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 20,
+      "born": "C0-B116",
+      "position": [0.0, 891.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 21,
+      "born": "C0-B124",
+      "position": [0.0, 808.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 22,
+      "born": "C0-B125",
+      "position": [0.0, 515.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 23,
+      "born": "C0-B129",
+      "position": [0.0, 254.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 24,
+      "born": "C0-B133",
+      "position": [0.0, 136.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 25,
+      "born": "C0-B153",
+      "position": [0.0, 715.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 26,
+      "born": "C0-B160",
+      "position": [0.0, 764.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 27,
+      "born": "C0-B161",
+      "position": [0.0, 168.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 28,
+      "born": "C0-B162",
+      "position": [0.0, 184.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 29,
+      "born": "C0-B170",
+      "position": [0.0, 659.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 30,
+      "born": "C0-B172",
+      "position": [0.0, 115.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 31,
+      "born": "C0-B175",
+      "position": [0.0, 615.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 32,
+      "born": "C0-B182",
+      "position": [0.0, 688.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 33,
+      "born": "C0-B186",
+      "position": [0.0, 275.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    },
+    {
+      "id": 34,
+      "born": "C0-B195",
+      "position": [0.0, 28.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE",
+      "alive": true
+    }
+  ]
+}

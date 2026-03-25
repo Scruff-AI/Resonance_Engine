@@ -1,6 +1,6 @@
 #!/bin/bash
 # WSL2 CUDA + Dependencies Setup for LBM Daemon
-# Run inside WSL: bash /mnt/d/fractal-brain/beast-build/setup_wsl_cuda.sh
+# Run inside WSL: bash /mnt/d/Resonance_Engine/beast-build/setup_wsl_cuda.sh
 set -e
 
 echo "=== WSL2 CUDA SETUP FOR LBM DAEMON ==="

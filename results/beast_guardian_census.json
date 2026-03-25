@@ -1,0 +1,302 @@
+{
+  "total_guardians": 33,
+  "guardians": [
+    {
+      "id": 0,
+      "born": "C0",
+      "position": [0.0, 901.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 1,
+      "born": "C0",
+      "position": [0.0, 933.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 2,
+      "born": "C0",
+      "position": [0.0, 912.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 3,
+      "born": "C0",
+      "position": [0.0, 500.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 4,
+      "born": "C0",
+      "position": [0.0, 375.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 5,
+      "born": "C0",
+      "position": [0.0, 782.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 6,
+      "born": "C0",
+      "position": [0.0, 987.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 7,
+      "born": "C0",
+      "position": [0.0, 316.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 8,
+      "born": "C0",
+      "position": [0.0, 427.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 9,
+      "born": "C0",
+      "position": [0.0, 764.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 10,
+      "born": "C0",
+      "position": [0.0, 659.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 11,
+      "born": "C0",
+      "position": [0.0, 228.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 12,
+      "born": "C0",
+      "position": [0.0, 171.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 13,
+      "born": "C1",
+      "position": [0.0, 686.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 14,
+      "born": "C1",
+      "position": [0.0, 836.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 15,
+      "born": "C1",
+      "position": [0.0, 38.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 16,
+      "born": "C1",
+      "position": [0.0, 13.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 17,
+      "born": "C1",
+      "position": [0.0, 479.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 18,
+      "born": "C1",
+      "position": [0.0, 492.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 19,
+      "born": "C1",
+      "position": [0.0, 913.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 20,
+      "born": "C1",
+      "position": [0.0, 959.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 21,
+      "born": "C1",
+      "position": [0.0, 168.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 22,
+      "born": "C1",
+      "position": [0.0, 570.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 23,
+      "born": "C1",
+      "position": [0.0, 632.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 24,
+      "born": "C1",
+      "position": [0.0, 4.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 25,
+      "born": "C1",
+      "position": [0.0, 942.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 26,
+      "born": "C1",
+      "position": [0.0, 320.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 27,
+      "born": "C1",
+      "position": [0.0, 258.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 28,
+      "born": "C1",
+      "position": [0.0, 842.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 29,
+      "born": "C1",
+      "position": [0.0, 607.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 30,
+      "born": "C1",
+      "position": [0.0, 251.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 31,
+      "born": "C1",
+      "position": [0.0, 292.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    },
+    {
+      "id": 32,
+      "born": "C1",
+      "position": [0.0, 107.0],
+      "velocity": [0.000000, 0.000000],
+      "mass": 0.000,
+      "latent_energy": 0.000000,
+      "state": "PULSE"
+    }
+  ]
+}

@@ -23,7 +23,7 @@ ASYM_SIGMA = 3.5            # standard deviation multiplier (was 2.0 — too twi
 WINDOW_SIZE = 100           # rolling window for stats (was 50)
 SAVE_COOLDOWN = 300.0       # seconds between triggered saves (was 30 — way too fast)
 MAX_SAVES = 200             # keep at most this many checkpoints, delete oldest
-SAVE_DIR = "/mnt/d/fractal-brain/beast-build/sentry_saves"
+SAVE_DIR = "/mnt/d/Resonance_Engine/beast-build/sentry_saves"
 
 # === STATE ===
 coh_window = deque(maxlen=WINDOW_SIZE)

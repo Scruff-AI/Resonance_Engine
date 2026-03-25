@@ -1,5 +1,5 @@
 # ============================================
-# fractal-brain: SOURCE CODE ONLY
+# Resonance_Engine: SOURCE CODE ONLY
 # Everything below is produced output / junk
 # ============================================
 
@@ -85,6 +85,9 @@ images/
 logs/
 recovery_points/
 attractors/
+
+# --- Embedded git repos ---
+results/s2-examine/
 
 # --- GDB debug scripts ---
 *.gdb

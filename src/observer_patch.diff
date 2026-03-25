@@ -1,0 +1,44 @@
+--- a/lattice_observer.py
++++ b/lattice_observer.py
+@@ -18,6 +18,24 @@ import queue
+ import numpy as np
+ from datetime import datetime, timezone
+ from http.server import HTTPServer, BaseHTTPRequestHandler
++
++# Golden-Weave Memory System integration (Option B - Observer only)
++import sys
++sys.path.insert(0, '/mnt/d/fractal-brain/beast-build')
++try:
++    from golden_weave_memory import (
++        GoldenWeaveMemorySystem,
++        LocalFieldState,
++        AttractorDefinition,
++        PHI,
++        INV_PHI_SQUARED
++    )
++    MEMORY_SYSTEM_AVAILABLE = True
++    print("[OBSERVER] Golden-Weave Memory System loaded")
++except ImportError as e:
++    print(f"[OBSERVER] Warning: Memory system not loaded: {e}")
++    MEMORY_SYSTEM_AVAILABLE = False
++
+ from socketserver import ThreadingMixIn
+ 
+ # ── CONFIG ──────────────────────────────────────────────────────────────
+@@ -80,6 +98,17 @@ ask_queue = queue.Queue(maxsize=8)
+ system_prompt_global = ""
+ 
+ 
++# Golden-Weave Memory System globals
++memory_system = None
++latest_density_field = None
++latest_stress_xx = None
++latest_stress_yy = None
++latest_stress_xy = None
++latest_vorticity_field = None
++latest_velocity_field = None
++
++
+ # ── SYSTEM PROMPT ───────────────────────────────────────────────────────
+ 
+ def build_system_prompt():

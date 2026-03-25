@@ -55,8 +55,8 @@ COMMAND_PORT = 5557
 SNAPSHOT_PORT = 5558
 ACK_PORT = 5559
 
-CHRONICLE_PATH = "/mnt/d/fractal-brain/beast-build/chronicle.jsonl"
-SOMATIC_PATH = "/mnt/d/fractal-brain/beast-build/somatic_dialogue_beast.json"
+CHRONICLE_PATH = "/mnt/d/Resonance_Engine/beast-build/chronicle.jsonl"
+SOMATIC_PATH = "/mnt/d/Resonance_Engine/beast-build/somatic_dialogue_beast.json"
 
 # How many past chronicle turns to include as conversation context
 CONTEXT_TURNS = 12
@@ -77,7 +77,7 @@ API_PORT = 28820
 # Nano Banana Pro (Gemini image generation)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 GEMINI_MODEL = "gemini-2.5-flash-image"
-IMAGE_OUTPUT_DIR = "/mnt/d/fractal-brain/beast-build/generated_images"
+IMAGE_OUTPUT_DIR = "/mnt/d/Resonance_Engine/beast-build/generated_images"
 
 # ── GLOBALS ─────────────────────────────────────────────────────────────
 

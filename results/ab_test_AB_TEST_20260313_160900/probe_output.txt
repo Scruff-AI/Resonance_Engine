@@ -1,0 +1,41 @@
+===================================================================
+  P R O B E 1024 — ORIGINAL BEAST VERSION
+  Grid: 1024x1024, Max guardians: 194
+===================================================================
+
+[CUDA] NVIDIA GeForce RTX 4090  SM 8.9  SMs: 128
+[NVML] Idle: 149.3 W
+
+  cyc  |  T+      |  omega  | speed range  | rho range          | enst       | part | p.mass   | M_total     | probe
+  -----|----------|---------|-------------- |--------------------|------------|------|----------|-------------|------
+  ** NEW GUARDIAN  T+0:00:11  cy0 b70  (0,901)  rho=1.00023  total=1
+  ** NEW GUARDIAN  T+0:00:12  cy0 b80  (0,933)  rho=1.00027  total=2
+  ** NEW GUARDIAN  T+0:00:14  cy0 b90  (0,912)  rho=1.00029  total=3
+  ** NEW GUARDIAN  T+0:00:15  cy0 b100  (0,500)  rho=1.00033  total=4
+  ** NEW GUARDIAN  T+0:00:17  cy0 b110  (0,375)  rho=1.00035  total=5
+  ** NEW GUARDIAN  T+0:00:18  cy0 b120  (0,782)  rho=1.00037  total=6
+  ** NEW GUARDIAN  T+0:00:20  cy0 b130  (0,987)  rho=1.00041  total=7
+  ** NEW GUARDIAN  T+0:00:22  cy0 b140  (0,316)  rho=1.00043  total=8
+  ** NEW GUARDIAN  T+0:00:23  cy0 b150  (0,427)  rho=1.00046  total=9
+  ** NEW GUARDIAN  T+0:00:25  cy0 b160  (0,764)  rho=1.00049  total=10
+  ** NEW GUARDIAN  T+0:00:26  cy0 b170  (0,659)  rho=1.00051  total=11
+  ** NEW GUARDIAN  T+0:00:28  cy0 b180  (0,228)  rho=1.00054  total=12
+  ** NEW GUARDIAN  T+0:00:29  cy0 b190  (0,171)  rho=1.00056  total=13
+     0 | 0:00:31 |  1.250 |              | [1.00000,1.00000] |            |   13 |     0.00 |        0.00 | ---
+
+[TIME] 30 seconds reached (test complete)
+
+===================================================================
+  FINAL REPORT - PROBE 1024
+===================================================================
+  Cycles run:       1
+  Total guardians:  13 (born: 13)
+  Target guardians: 194
+  Runtime:          31 seconds
+  Final power:      150.0 W
+  Census saved:     beast_guardian_census.json
+
+===================================================================
+  ORIGINAL BEAST VERSION READY
+  Grid: 1024x1024, Target: 194 guardians
+===================================================================
