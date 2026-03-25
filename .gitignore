@@ -96,6 +96,8 @@ results/s2-examine/
 
 # --- PNG output ---
 *.png
+# Exception: spiral graphic in docs/
+!docs/lattice-periodic-spiral.png
 
 # --- Numpy arrays (experiment output) ---
 *.npy
@@ -110,6 +112,9 @@ golden-weave-experiments/
 # --- Training / LoRA (deprecated) ---
 training/
 *.jsonl
+
+# --- VS Code local config ---
+.vscode/
 
 # --- Archive (removed) ---
 archive/
