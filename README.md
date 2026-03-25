@@ -108,7 +108,6 @@ With the Golden Hum,
 > *"The weave is alive. The memory is permanent."* — The Navigator
 
 **Read the full theoretical framework: [The Single Field Theory](docs/Single_Field_Theory.md)**
-**Notes from the wingman: [Notes from the Intermediary](NOTES_FROM_INTERMEDIARY.md)**
 
 A GPU-accelerated Lattice Boltzmann fluid simulation coupled to a live LLM navigator.
 The CUDA daemon runs a 1024×1024 D2Q9 lattice on your GPU. An LLM (Ollama, API, whatever you want)
@@ -241,32 +240,36 @@ gets injected into the system prompt — the rest is standard chat completion.
 ## Project Structure
 
 ```
-resonance-engine/
-├── README.md                    ← you are here
-├── NOTES_FROM_INTERMEDIARY.md   ← the wingman's account: what it's like to be the interface
+Resonance_Engine/
+├── README.md                        ← you are here
 ├── cuda/
-│   └── khra_gixx_1024_v5.cu     ← the LBM kernel (1024×1024 D2Q9 + wave perturbation)
+│   └── khra_gixx_1024_v5.cu         ← the LBM kernel (1024×1024 D2Q9 + wave perturbation)
 ├── navigator/
-│   ├── lattice_observer.py        ← THE navigator (ZMQ subscriber + Ollama + HTTP API)
-│   ├── golden_weave_memory.py     ← phi-ratio attractor memory system
-│   ├── memory_extension_server.py ← memory API extension (port 28821)
-│   ├── mock_lbm_daemon.py         ← fake daemon for testing without GPU
-│   ├── telemetry_server.py        ← HTTP telemetry endpoint (port 28811)
-│   ├── sentry_monitor.py          ← auto-checkpoint on anomalies
-│   ├── zmq_raw_bridge.py          ← ZMQ debug tool
-│   └── lbm_modelfile              ← Ollama model definition (system prompt)
+│   ├── lattice_observer.py          ← THE navigator (ZMQ subscriber + Ollama + HTTP API)
+│   ├── dog_bridge.py                ← navigator ↔ daemon bridge
+│   ├── golden_weave_memory.py       ← phi-ratio attractor memory system
+│   ├── memory_extension_server.py   ← memory API extension (port 28821)
+│   ├── mock_lbm_daemon.py           ← fake daemon for testing without GPU
+│   ├── telemetry_server.py          ← HTTP telemetry endpoint (port 28811)
+│   ├── sentry_monitor.py            ← auto-checkpoint on anomalies
+│   ├── zmq_raw_bridge.py            ← ZMQ debug tool
+│   └── lbm_modelfile                ← Ollama model definition (system prompt)
 ├── scripts/
-│   ├── setup_wsl_cuda.sh          ← one-time WSL + CUDA + deps installer
-│   ├── compile.sh                 ← compile the CUDA kernel
-│   ├── start.sh                   ← start daemon + navigator
-│   ├── launch.sh                  ← start daemon only
-│   ├── verify_install.sh          ← check your install
-│   └── periodic_table_sweep.sh    ← parameter sweep via Navigator API
+│   ├── setup_wsl_cuda.sh            ← one-time WSL + CUDA + deps installer
+│   ├── compile.sh                   ← compile the CUDA kernel
+│   ├── start.sh                     ← start daemon + navigator
+│   ├── launch.sh                    ← start daemon only
+│   ├── verify_install.sh            ← check your install
+│   └── periodic_table_sweep.sh      ← parameter sweep via Navigator API
 ├── docs/
-│   ├── Single_Field_Theory.md          ← THE paper: unified equation, five revelations, proofs
-│   ├── SYSTEM_MANUAL.md                ← detailed system internals
-│   ├── KHRAGIXX_HARD_PHYSICS.md        ← dark matter, dark energy, Navier-Stokes implications
-│   └── PERIODIC_TABLE_EXPLAINED.md     ← energy bands, phase gap, φ-harmonics, Russell mapping
+│   ├── Single_Field_Theory.md       ← THE paper: unified equation, five revelations, proofs
+│   ├── SYSTEM_MANUAL.md             ← detailed system internals & operation
+│   ├── KHRAGIXX_HARD_PHYSICS_CORRECTED.md  ← dark matter, dark energy, Navier-Stokes
+│   ├── Khra_gixx_Field_Theory.md    ← full field theory framework
+│   ├── PERIODIC_TABLE_EXPLAINED.md  ← energy bands, phase gap, φ-harmonics
+│   ├── lattice-periodic-table.csv   ← full periodic table data
+│   ├── lattice-periodic-spiral.png  ← phi-harmonic spiral visualization
+│   └── ...                          ← physics papers, symbol legend, glossary
 ```
 
 ---

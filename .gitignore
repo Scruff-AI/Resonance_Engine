@@ -91,6 +91,11 @@ attractors/
 # --- Embedded git repos ---
 results/s2-examine/
 
+# --- Purged directories (historical, preserved in git history) ---
+results/
+experiments/
+src/
+
 # --- GDB debug scripts ---
 *.gdb
 
