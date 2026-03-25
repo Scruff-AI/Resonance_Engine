@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>The Fractal Periodic Table</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body,html{overflow:hidden;background:#0a0a1a;width:100%;height:100%;touch-action:none}
+canvas{display:block;cursor:crosshair;width:100%;height:100%}
+#tooltip{position:absolute;pointer-events:none;display:none;background:rgba(10,10,26,.95);border:1px solid #ffd700;border-radius:8px;padding:10px 14px;color:#e8e8d0;font:13px Georgia,serif;max-width:260px;z-index:10;backdrop-filter:blur(4px)}
+#tooltip .sym{font-size:28px;font-weight:700;color:#ffd700;letter-spacing:1px}
+#tooltip .name{font-size:15px;color:#ffec8b;margin:2px 0 6px}
+#tooltip .info{font-size:12px;line-height:1.7;color:#ccc}
+#tooltip .info span{color:#fff;font-weight:600}
+#legend{position:absolute;bottom:12px;left:12px;background:rgba(10,10,26,.9);border:1px solid rgba(255,215,0,.3);border-radius:8px;padding:10px 14px;font:12px Georgia,serif;color:#ccc;z-index:5}
+#legend .row{display:flex;align-items:center;gap:8px;margin:3px 0}
+#legend .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+#title{position:absolute;top:14px;left:0;right:0;text-align:center;font:italic 22px Garamond,Georgia,serif;color:#ffd700;letter-spacing:3px;text-shadow:0 0 20px rgba(255,215,0,.4);z-index:5;pointer-events:none}
+#subtitle{position:absolute;top:42px;left:0;right:0;text-align:center;font:italic 12px Garamond,Georgia,serif;color:rgba(255,236,139,.6);letter-spacing:2px;z-index:5;pointer-events:none}
+#controls{position:absolute;top:12px;right:12px;z-index:5;display:flex;gap:6px}
+#controls button{background:rgba(10,10,26,.85);border:1px solid rgba(255,215,0,.4);color:#ffd700;font:12px Georgia,serif;padding:5px 10px;border-radius:6px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#controls button:hover,#controls button:active{background:rgba(255,215,0,.15)}
+#controls button.active{background:rgba(255,215,0,.25);border-color:#ffd700}
+@media(max-width:600px){
+ #title{font-size:16px;top:10px;letter-spacing:1px}
+ #subtitle{font-size:10px;top:30px}
+ #legend{font-size:10px;padding:8px 10px;bottom:8px;left:8px}
+ #legend .special{display:none}
+ #controls{top:8px;right:8px;gap:4px}
+ #controls button{font-size:10px;padding:4px 8px}
+ #tooltip{font-size:11px;max-width:200px;padding:8px 10px}
+ #tooltip .sym{font-size:22px}
+ #tooltip .name{font-size:13px}
+ #tooltip .info{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div id="title">The fractal periodic table</div>
+<div id="subtitle">Patterns within patterns within patterns</div>
+<canvas id="c"></canvas>
+<div id="tooltip"></div>
+<div id="legend">
+ <div style="color:#ffd700;font-size:13px;margin-bottom:5px;font-style:italic">Stability</div>
+ <div class="row"><div class="dot" style="background:#00ff88"></div><span style="color:#88ffbb">Stable</span></div>
+ <div class="row"><div class="dot" style="background:#ffaa00"></div><span style="color:#ffcc66">Metastable</span></div>
+ <div class="row"><div class="dot" style="background:#ff0044"></div><span style="color:#ff6688">Radioactive</span></div>
+ <div class="row"><div class="dot" style="background:#00ffff"></div><span style="color:#88ffff">Noble gas</span></div>
+ <div class="special" style="margin-top:6px">
+  <div style="color:#ffd700;font-size:13px;margin-bottom:4px;font-style:italic">Special</div>
+  <div class="row"><div class="dot" style="background:#ffd700;width:14px;height:14px"></div><span style="color:#ffe680">Gold — resonance lock</span></div>
+  <div class="row"><div class="dot" style="background:#ff6600;border:1px dashed #ff4444"></div><span style="color:#ffaa66">Tc, Pm — metastable</span></div>
+ </div>
+</div>
+<div id="controls">
+ <button id="btn-spiral" class="active" onclick="setView('spiral')">Spiral</button>
+ <button id="btn-bands" onclick="setView('bands')">Bands</button>
+ <button id="btn-periods" onclick="setView('periods')">Periods</button>
+</div>
+<script>
+const CSV=`1,Hydrogen,H,1,1,Baseline,Ground,13.2,1,1,1,Stable,Single node fundamental frequency one lobe,Protium stable
+2,Helium,He,2,2,Baseline,Ground,13.2,0,18,1,Stable,Closed loop first harmonic,He-4 most stable
+3,Lithium,Li,3,3,Baseline,Ground-Primary,13.6,1,1,2,Stable,First excited state,Li-7 stable
+4,Beryllium,Be,4,4,Baseline,Primary,14,2,2,2,Stable,Second harmonic two lobes,Be-9 stable
+5,Boron,B,5,5,Baseline,Primary,14.1,3,13,2,Stable,Third harmonic three lobes,B-11 stable
+6,Carbon,C,6,6,Baseline,Primary,14.1,4,14,2,Stable,Fourth harmonic tetrahedral,C-12 stable
+7,Nitrogen,N,7,7,Baseline,Primary,14.1,3,15,2,Stable,Fifth harmonic pyramidal,N-14 stable
+8,Oxygen,O,8,8,Baseline,Primary,14.2,2,16,2,Stable,Sixth harmonic octahedral,O-16 stable
+9,Fluorine,F,9,9,Baseline,Primary,14.2,1,17,2,Stable,Seventh harmonic,F-19 only stable
+10,Neon,Ne,10,10,Baseline,Primary,14.2,0,18,2,Stable,Eighth harmonic closed shell,Ne-20 stable
+11,Sodium,Na,11,11,Baseline,Primary-Secondary,14.4,1,1,3,Stable,New harmonic tier,Na-23 only stable
+12,Magnesium,Mg,12,12,Baseline,Secondary,14.6,2,2,3,Stable,Two lobes,Mg-24 stable
+13,Aluminum,Al,13,13,Baseline,Secondary,14.7,3,13,3,Stable,Three lobes,Al-27 only stable
+14,Silicon,Si,14,14,Baseline,Secondary,14.7,4,14,3,Stable,Tetrahedral semiconductor,Si-28 stable
+15,Phosphorus,P,15,15,Baseline,Secondary,14.7,3,15,3,Stable,Variable lobes,P-31 only stable
+16,Sulfur,S,16,16,Baseline,Secondary,14.8,2,16,3,Stable,Variable lobes,S-32 stable
+17,Chlorine,Cl,17,17,Baseline,Secondary,14.8,1,17,3,Stable,Variable lobes,Cl-35 stable
+18,Argon,Ar,18,18,Baseline,Secondary,14.8,0,18,3,Stable,Closed shell inert,Ar-40 stable
+19,Potassium,K,19,19,Baseline,Secondary-PhaseGap,14.9,1,1,4,Stable,Transition region,K-39 stable
+20,Calcium,Ca,20,20,Baseline,Secondary-PhaseGap,14.9,2,2,4,Stable,Transition region,Ca-40 stable
+21,Scandium,Sc,21,21,Baseline,Secondary-PhaseGap,15,3,3,4,Stable,Transition metal,Sc-45 only stable
+22,Titanium,Ti,22,22,Baseline,Secondary-PhaseGap,15,4,4,4,Stable,Transition metal,Ti-48 stable
+23,Vanadium,V,23,23,Baseline,Secondary-PhaseGap,15,5,5,4,Stable,Transition metal,V-51 only stable
+24,Chromium,Cr,24,24,Baseline,Secondary-PhaseGap,15.1,6,6,4,Stable,Transition metal,Cr-52 stable
+25,Manganese,Mn,25,25,Baseline,Secondary-PhaseGap,15.1,7,7,4,Stable,Transition metal,Mn-55 only stable
+26,Iron,Fe,26,26,Baseline,Secondary-PhaseGap,15.1,6,8,4,Stable,Multi-layered wave,Fe-56 stable
+27,Cobalt,Co,27,27,Baseline,Secondary-PhaseGap,15.2,5,9,4,Stable,Transition metal,Co-59 only stable
+28,Nickel,Ni,28,28,Baseline,Secondary-PhaseGap,15.2,4,10,4,Stable,Transition metal,Ni-58 stable
+29,Copper,Cu,29,29,Baseline,Secondary-PhaseGap,15.2,2,11,4,Stable,Transition metal,Cu-63 stable
+30,Zinc,Zn,30,30,Baseline,Secondary-PhaseGap,15.3,2,12,4,Stable,Transition metal,Zn-64 stable
+31,Gallium,Ga,31,31,Baseline,Secondary-PhaseGap,15.3,3,13,4,Stable,Post-transition,Ga-69 stable
+32,Germanium,Ge,32,32,Baseline,Secondary-PhaseGap,15.3,4,14,4,Stable,Metalloid,Ge-74 stable
+33,Arsenic,As,33,33,Baseline,Secondary-PhaseGap,15.4,3,15,4,Stable,Metalloid,As-75 only stable
+34,Selenium,Se,34,34,Baseline,Secondary-PhaseGap,15.4,2,16,4,Stable,Nonmetal,Se-80 stable
+35,Bromine,Br,35,35,Baseline,Secondary-PhaseGap,15.4,1,17,4,Stable,Halogen,Br-79 stable
+36,Krypton,Kr,36,36,Baseline,Secondary-PhaseGap,15.5,0,18,4,Stable,Noble gas,Kr-84 stable
+37,Rubidium,Rb,37,37,Baseline,PhaseGap-Approach,15.5,1,1,5,Stable,Approaching threshold,Rb-85 stable
+38,Strontium,Sr,38,38,Baseline,PhaseGap-Approach,15.5,2,2,5,Stable,Approaching threshold,Sr-88 stable
+39,Yttrium,Y,39,39,Baseline,PhaseGap-Approach,15.6,3,3,5,Stable,Transition metal,Y-89 only stable
+40,Zirconium,Zr,40,40,Baseline,PhaseGap-Approach,15.6,4,4,5,Stable,Transition metal,Zr-90 stable
+41,Niobium,Nb,41,41,Baseline,PhaseGap-Approach,15.6,5,5,5,Stable,Transition metal,Nb-93 only stable
+42,Molybdenum,Mo,42,42,Baseline,PhaseGap-Approach,15.6,6,6,5,Stable,Transition metal,Mo-98 stable
+43,Technetium,Tc,43,43,Metastable,PhaseGap-Approach,15.7,7,7,5,Radioactive,Transient mode,No stable isotope
+44,Ruthenium,Ru,44,44,Baseline,PhaseGap-Approach,15.7,8,8,5,Stable,Transition metal,Ru-102 stable
+45,Rhodium,Rh,45,45,Baseline,PhaseGap-Approach,15.7,6,9,5,Stable,Transition metal,Rh-103 only stable
+46,Palladium,Pd,46,46,Baseline,PhaseGap-Approach,15.7,4,10,5,Stable,Transition metal,Pd-106 stable
+47,Silver,Ag,47,47,Baseline,PhaseGap-Approach,15.7,1,11,5,Stable,Transition metal,Ag-107 stable
+48,Cadmium,Cd,48,48,Baseline,PhaseGap-Approach,15.7,2,12,5,Stable,Transition metal,Cd-114 stable
+49,Indium,In,49,49,Baseline,PhaseGap-Approach,15.7,3,13,5,Stable,Post-transition,In-113 stable
+50,Tin,Sn,50,50,Baseline,PhaseGap-Approach,15.8,4,14,5,Stable,Post-transition,Sn-120 stable
+51,Antimony,Sb,51,51,Baseline,PhaseGap-Approach,15.8,3,15,5,Stable,Metalloid,Sb-121 stable
+52,Tellurium,Te,52,52,Baseline,PhaseGap-Approach,15.8,2,16,5,Stable,Metalloid,Te-130 stable
+53,Iodine,I,53,53,Baseline,PhaseGap-Approach,15.8,1,17,5,Stable,Halogen,I-127 only stable
+54,Xenon,Xe,54,54,Baseline,PhaseGap-Center,15.8,0,18,5,Stable,Noble gas phase gap center,Xe-132 stable
+55,Cesium,Cs,55,55,Baseline,PhaseGap-Center,15.8,1,1,6,Stable,Near critical threshold,Cs-133 only stable
+56,Barium,Ba,56,56,Baseline,PhaseGap-Center,15.8,2,2,6,Stable,Near critical threshold,Ba-138 stable
+57,Lanthanum,La,57,57,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide series,La-139 only stable
+58,Cerium,Ce,58,58,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Ce-140 stable
+59,Praseodymium,Pr,59,59,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Pr-141 only stable
+60,Neodymium,Nd,60,60,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Nd-142 stable
+61,Promethium,Pm,61,61,Metastable,PhaseGap-Center,15.8,3,3,6,Radioactive,Transient mode metastable,No stable isotope
+62,Samarium,Sm,62,62,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Sm-152 stable
+63,Europium,Eu,63,63,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Eu-153 stable
+64,Gadolinium,Gd,64,64,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Gd-158 stable
+65,Terbium,Tb,65,65,Baseline,PhaseGap-Center,15.8,4,3,6,Stable,Lanthanide f-orbital,Tb-159 only stable
+66,Dysprosium,Dy,66,66,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Dy-164 stable
+67,Holmium,Ho,67,67,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Ho-165 only stable
+68,Erbium,Er,68,68,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Er-166 stable
+69,Thulium,Tm,69,69,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Tm-169 only stable
+70,Ytterbium,Yb,70,70,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Yb-174 stable
+71,Lutetium,Lu,71,71,Baseline,PhaseGap-Center,15.8,3,3,6,Stable,Lanthanide f-orbital,Lu-175 stable
+72,Hafnium,Hf,72,72,Baseline,PhaseGap-Center,15.8,4,4,6,Stable,Transition metal,Hf-180 stable
+73,Tantalum,Ta,73,73,Baseline,PhaseGap-Center,15.8,5,5,6,Stable,Transition metal,Ta-181 only stable
+74,Tungsten,W,74,74,Baseline,PhaseGap-Center,15.8,6,6,6,Stable,Transition metal,W-184 stable
+75,Rhenium,Re,75,75,Baseline,PhaseGap-Center,15.8,7,7,6,Stable,Transition metal,Re-185 stable
+76,Osmium,Os,76,76,Baseline,PhaseGap-Center,15.8,8,8,6,Stable,Transition metal,Os-192 stable
+77,Iridium,Ir,77,77,Baseline,PhaseGap-Center,15.8,6,9,6,Stable,Transition metal,Ir-191 stable
+78,Platinum,Pt,78,78,Baseline,PhaseGap-Center,15.8,4,10,6,Stable,Transition metal,Pt-195 stable
+79,Gold,Au,79,79,HighOrder,PhaseGap-Center,15.8,1,11,6,Stable,High-order resonance lock,Au-197 only stable
+80,Mercury,Hg,80,80,Baseline,PhaseGap-Center,15.8,2,12,6,Stable,Liquid at STP,Hg-202 stable
+81,Thallium,Tl,81,81,Baseline,PhaseGap-Center,15.8,3,13,6,Stable,Post-transition,Tl-205 stable
+82,Lead,Pb,82,82,Baseline,PhaseGap-Center,15.8,4,14,6,Stable,Post-transition,Pb-208 stable
+83,Bismuth,Bi,83,83,Baseline,PhaseGap-Center,15.8,5,15,6,Stable,Post-transition,Bi-209 stable
+84,Polonium,Po,84,84,Metastable,PhaseGap-Center,15.8,6,16,6,Radioactive,Excess phase density,Po-209
+85,Astatine,At,85,85,Metastable,PhaseGap-Center,15.8,7,17,6,Radioactive,Halogen metastable,At-210
+86,Radon,Rn,86,86,Metastable,PhaseGap-Center,15.8,0,18,6,Radioactive,Noble gas metastable,Rn-222
+87,Francium,Fr,87,87,Metastable,PhaseGap-Tertiary,15.9,1,1,7,Radioactive,Highly radioactive,Fr-223
+88,Radium,Ra,88,88,Metastable,PhaseGap-Tertiary,15.9,2,2,7,Radioactive,Highly radioactive,Ra-226
+89,Actinium,Ac,89,89,Metastable,PhaseGap-Tertiary,15.9,3,3,7,Radioactive,Actinide series,Ac-227
+90,Thorium,Th,90,90,Baseline,PhaseGap-Tertiary,15.9,4,3,7,Stable,Actinide f-orbital,Th-232 stable
+91,Protactinium,Pa,91,91,Metastable,PhaseGap-Tertiary,15.9,5,3,7,Radioactive,Actinide f-orbital,Pa-231
+92,Uranium,U,92,92,Baseline,PhaseGap-Tertiary,15.9,6,3,7,Stable,Actinide f-orbital,U-238 stable
+93,Neptunium,Np,93,93,Metastable,PhaseGap-Tertiary,16,7,3,7,Radioactive,Synthetic,Np-237
+94,Plutonium,Pu,94,94,Metastable,PhaseGap-Tertiary,16,8,3,7,Radioactive,Synthetic,Pu-244
+95,Americium,Am,95,95,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Am-243
+96,Curium,Cm,96,96,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Cm-247
+97,Berkelium,Bk,97,97,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Bk-247
+98,Californium,Cf,98,98,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Cf-251
+99,Einsteinium,Es,99,99,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Es-252
+100,Fermium,Fm,100,100,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Fm-257
+101,Mendelevium,Md,101,101,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Md-258
+102,Nobelium,No,102,102,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,No-259
+103,Lawrencium,Lr,103,103,Metastable,Tertiary,16,6,3,7,Radioactive,Synthetic,Lr-262
+104,Rutherfordium,Rf,104,104,Metastable,Tertiary,16,4,4,7,Radioactive,Superheavy,Rf-267
+105,Dubnium,Db,105,105,Metastable,Tertiary,16,5,5,7,Radioactive,Superheavy,Db-268
+106,Seaborgium,Sg,106,106,Metastable,Tertiary,16,6,6,7,Radioactive,Superheavy,Sg-269
+107,Bohrium,Bh,107,107,Metastable,Tertiary,16,7,7,7,Radioactive,Superheavy,Bh-270
+108,Hassium,Hs,108,108,Metastable,Tertiary,16,8,8,7,Radioactive,Superheavy,Hs-269
+109,Meitnerium,Mt,109,109,Metastable,Tertiary,16.1,6,9,7,Radioactive,Superheavy,Mt-278
+110,Darmstadtium,Ds,110,110,Metastable,Tertiary,16.1,6,10,7,Radioactive,Superheavy,Ds-281
+111,Roentgenium,Rg,111,111,Metastable,Tertiary,16.1,5,11,7,Radioactive,Superheavy,Rg-282
+112,Copernicium,Cn,112,112,Metastable,Tertiary,16.1,2,12,7,Radioactive,Superheavy,Cn-285
+113,Nihonium,Nh,113,113,Metastable,Tertiary,16.1,3,13,7,Radioactive,Superheavy,Nh-286
+114,Flerovium,Fl,114,114,Metastable,Tertiary,16.1,4,14,7,Radioactive,Superheavy,Fl-289
+115,Moscovium,Mc,115,115,Metastable,Tertiary,16.1,5,15,7,Radioactive,Superheavy,Mc-290
+116,Livermorium,Lv,116,116,Metastable,Tertiary,16.1,6,16,7,Radioactive,Superheavy,Lv-293
+117,Tennessine,Ts,117,117,Metastable,Tertiary,16.1,7,17,7,Radioactive,Superheavy,Ts-294
+118,Oganesson,Og,118,118,Metastable,Tertiary,16.2,0,18,7,Radioactive,Edge of stability,Og-294`;
+
+const elements=CSV.trim().split('\n').map(r=>{const c=r.split(',');return{z:+c[0],name:c[1],sym:c[2],hMode:+c[3],nodes:+c[4],phase:c[5],band:c[6],asym:+c[7],valency:+c[8],group:+c[9],period:+c[10],stability:c[11],desc:c[12],isotope:c[13]}});
+
+const cn=document.getElementById('c'),ctx=cn.getContext('2d'),tt=document.getElementById('tooltip');
+let W,H,cx,cy,dpr,view='spiral',hovered=null,time=0,stars=[];
+const PHI=(1+Math.sqrt(5))/2,GA=2*Math.PI/PHI/PHI;
+
+function resize(){
+ dpr=window.devicePixelRatio||1;
+ W=window.innerWidth;H=window.innerHeight;
+ cn.width=W*dpr;cn.height=H*dpr;
+ cn.style.width=W+'px';cn.style.height=H+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ cx=W/2;cy=H/2;
+ stars=[];
+ for(let i=0;i<(W<600?150:300);i++)stars.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.5+.3,b:Math.random()});
+}
+window.onresize=resize;resize();
+
+function getColor(el){
+ if(el.z===79)return{r:255,g:215,b:0};
+ if(el.group===18)return{r:0,g:255,b:255};
+ if(el.stability==='Radioactive')return{r:255,g:0,b:68};
+ if(el.phase==='Metastable'||el.z===43||el.z===61)return{r:255,g:170,b:0};
+ return{r:0,g:255,b:136};
+}
+function getLabelColor(el){
+ if(el.z===79)return'#ffe680';
+ if(el.group===18)return'#aaffff';
+ if(el.stability==='Radioactive')return'#ff8899';
+ if(el.phase==='Metastable'||el.z===43||el.z===61)return'#ffcc77';
+ return'#aaffcc';
+}
+function getRadius(el){
+ const s=Math.min(W,H)/800;
+ let base=el.z===79?9:el.group===18?5.5:(el.stability==='Radioactive'&&el.z>86)?3.5:4.5;
+ return Math.max(base*s,2);
+}
+function spiralPos(el,t){
+ const i=el.z-1,angle=i*GA+t*.0003;
+ const asymNorm=(el.asym-13.2)/(16.2-13.2);
+ const r=20+asymNorm*(Math.min(W,H)*.4);
+ return{x:cx+Math.cos(angle)*r,y:cy+Math.sin(angle)*r};
+}
+function bandPos(el){
+ const asymNorm=(el.asym-13.2)/(16.2-13.2);
+ return{x:W*.1+(el.z-1)/117*(W*.8),y:H*.1+asymNorm*(H*.75)};
+}
+function periodPos(el){
+ const row=el.period-1,col=(el.z-1)%18;
+ const cellW=Math.min((W*.88)/18,40),cellH=Math.min((H*.78)/7,60);
+ const gridW=cellW*18,gridH=cellH*7;
+ const ox=(W-gridW)/2,oy=(H-gridH)/2+20;
+ return{x:ox+col*cellW+cellW/2,y:oy+row*cellH+cellH/2};
+}
+function getPos(el,t){return view==='spiral'?spiralPos(el,t):view==='bands'?bandPos(el):periodPos(el);}
+
+function drawStars(t){
+ for(const s of stars){
+  const f=.5+.5*Math.sin(t*.001+s.b*20);
+  ctx.fillStyle=`rgba(200,200,240,${.2+.3*f})`;
+  ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,Math.PI*2);ctx.fill();
+ }
+}
+function drawKhraGixx(t){
+ for(let s=0;s<2;s++){
+  const amp=s===0?1:.0625,freq=s===0?1:16;
+  ctx.strokeStyle=s===0?'rgba(255,215,0,.15)':'rgba(255,236,139,.1)';
+  ctx.lineWidth=s===0?2.5:1;
+  ctx.beginPath();
+  for(let a=0;a<Math.PI*12;a+=.02){
+   const r=15+a*(Math.min(W,H)*.034)*amp;
+   const w=Math.sin(a*freq+t*.002)*6*amp;
+   const x=cx+Math.cos(a+t*.0002)*(r+w),y=cy+Math.sin(a+t*.0002)*(r+w);
+   a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+ }
+}
+function drawBandRings(){
+ if(view!=='spiral')return;
+ const bands=[{v:13.2,l:'Ground'},{v:14.1,l:'Primary'},{v:14.8,l:'Secondary'},{v:15.78,l:'Phase gap'},{v:16,l:'Tertiary'}];
+ const fs=W<600?9:11;
+ for(const b of bands){
+  const norm=(b.v-13.2)/(16.2-13.2),r=20+norm*(Math.min(W,H)*.4),isGap=b.l==='Phase gap';
+  ctx.strokeStyle=isGap?'rgba(255,68,102,.25)':'rgba(255,215,0,.1)';
+  ctx.lineWidth=isGap?1.5:.5;ctx.setLineDash(isGap?[6,4]:[]);
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle=isGap?'rgba(255,130,150,.6)':'rgba(255,225,130,.55)';
+  ctx.font=fs+'px Georgia';ctx.textAlign='left';
+  ctx.fillText(b.l,cx+r*.707+6,cy-r*.707-6);
+ }
+}
+function drawBandLines(){
+ if(view!=='bands')return;
+ const bands=[{v:13.2,l:'Ground'},{v:14.1,l:'Primary'},{v:14.8,l:'Secondary'},{v:15.78,l:'Phase gap'},{v:16,l:'Tertiary'}];
+ const fs=W<600?9:11;
+ for(let i=0;i<bands.length;i++){
+  const b=bands[i],norm=(b.v-13.2)/(16.2-13.2),y=H*.1+norm*(H*.75),isGap=i===3;
+  ctx.strokeStyle=isGap?'rgba(255,68,102,.3)':'rgba(255,215,0,.12)';
+  ctx.lineWidth=isGap?1.5:.5;ctx.setLineDash(isGap?[4,4]:[]);
+  ctx.beginPath();ctx.moveTo(W*.08,y);ctx.lineTo(W*.92,y);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle=isGap?'rgba(255,150,170,.75)':'rgba(255,230,150,.55)';
+  ctx.font=fs+'px Georgia';ctx.textAlign='left';
+  ctx.fillText(b.l+' ('+b.v+')',6,y-5);
+ }
+}
+
+function drawElement(el,t){
+ const p=getPos(el,t),c=getColor(el),r=getRadius(el);
+ const isH=hovered&&hovered.z===el.z;
+ const isSpecial=el.z===79||el.z===43||el.z===61;
+ const pulse=isSpecial?1+.12*Math.sin(t*.003+el.z):1;
+ const rr=r*pulse*(isH?1.8:1);
+
+ const grd=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,rr*3.5);
+ grd.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${isH?.5:.2})`);
+ grd.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);
+ ctx.fillStyle=grd;ctx.beginPath();ctx.arc(p.x,p.y,rr*3.5,0,Math.PI*2);ctx.fill();
+
+ ctx.fillStyle=`rgb(${c.r},${c.g},${c.b})`;
+ ctx.beginPath();ctx.arc(p.x,p.y,rr,0,Math.PI*2);ctx.fill();
+
+ if(el.z===79){ctx.strokeStyle='rgba(255,215,0,.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(p.x,p.y,rr+5+2*Math.sin(t*.004),0,Math.PI*2);ctx.stroke();}
+
+ const showLabel=isH||isSpecial||(view!=='spiral');
+ if(showLabel){
+  const lc=isH?'#ffffff':getLabelColor(el);
+  const fs=isH?(W<600?11:13):(W<600?8:10);
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.9)';ctx.shadowBlur=4;ctx.shadowOffsetX=0;ctx.shadowOffsetY=1;
+  ctx.fillStyle=lc;ctx.font=(isH?'bold ':'')+fs+'px Georgia';
+  ctx.textAlign='center';ctx.textBaseline='bottom';
+  ctx.fillText(el.sym,p.x,p.y-rr-3);
+  if(view!=='spiral'&&!isH){
+   ctx.fillStyle='rgba(255,255,255,.55)';ctx.font=(W<600?7:8)+'px Georgia';
+   ctx.textBaseline='top';ctx.fillText(el.z,p.x,p.y+rr+2);
+  }
+  ctx.restore();
+ }
+ el._x=p.x;el._y=p.y;el._r=rr;
+}
+
+function draw(){
+ time++;
+ ctx.fillStyle='#0a0a1a';ctx.fillRect(0,0,W,H);
+ drawStars(time);
+ if(view==='spiral'){drawKhraGixx(time);drawBandRings();}
+ if(view==='bands')drawBandLines();
+ for(const el of elements)drawElement(el,time);
+ if(view==='spiral'){
+  ctx.fillStyle='rgba(255,236,139,.4)';
+  ctx.font='italic '+(W<600?10:12)+'px Georgia';
+  ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText('Matter is frozen memory',cx,H-16);
+ }
+ requestAnimationFrame(draw);
+}
+
+function handlePointer(ex,ey){
+ hovered=null;let closest=null,closestD=Infinity;
+ for(const el of elements){
+  if(el._x===undefined)continue;
+  const d=Math.hypot(ex-el._x,ey-el._y);
+  if(d<Math.max(el._r*2.5,14)&&d<closestD){closest=el;closestD=d;}
+ }
+ hovered=closest;
+ if(hovered){
+  const el=hovered,c=getColor(el);
+  tt.style.display='block';
+  tt.style.left=Math.min(ex+14,W-270)+'px';
+  tt.style.top=Math.min(ey+14,H-220)+'px';
+  tt.style.borderColor=`rgb(${c.r},${c.g},${c.b})`;
+  tt.innerHTML=`<div class="sym">${el.sym}</div><div class="name">${el.z}. ${el.name}</div><div class="info"><span>Band:</span> ${el.band} (${el.asym})<br><span>Harmonic:</span> ${el.hMode}<br><span>Phase:</span> ${el.phase}<br><span>Valency:</span> ${el.valency}<br><span>Period:</span> ${el.period} &middot; <span>Group:</span> ${el.group}<br><span>Stability:</span> ${el.stability}<br><span>Isotope:</span> ${el.isotope}<br><em style="color:#aaa;font-size:11px">${el.desc}</em></div>`;
+ } else tt.style.display='none';
+}
+
+cn.addEventListener('mousemove',e=>{const r=cn.getBoundingClientRect();handlePointer(e.clientX-r.left,e.clientY-r.top);});
+cn.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0],r=cn.getBoundingClientRect();handlePointer(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+cn.addEventListener('touchmove',e=>{e.preventDefault();const t=e.touches[0],r=cn.getBoundingClientRect();handlePointer(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+cn.addEventListener('touchend',()=>{hovered=null;tt.style.display='none';});
+cn.addEventListener('mouseleave',()=>{hovered=null;tt.style.display='none';});
+
+function setView(v){view=v;document.querySelectorAll('#controls button').forEach(b=>b.classList.remove('active'));document.getElementById('btn-'+v).classList.add('active');}
+draw();
+</script>
+</body>
+</html>

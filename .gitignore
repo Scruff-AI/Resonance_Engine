@@ -103,6 +103,10 @@ src/
 *.png
 # Exception: spiral graphic in docs/
 !docs/lattice-periodic-spiral.png
+# Exception: fractal periodic table screenshots
+!docs/fractal-periodic-table-spiral.png
+!docs/fractal-periodic-table-bands.png
+!docs/fractal-periodic-table-periods.png
 
 # --- Numpy arrays (experiment output) ---
 *.npy
