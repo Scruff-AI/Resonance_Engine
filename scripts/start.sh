@@ -6,7 +6,7 @@ cd "$REPO_ROOT"
 mkdir -p build logs
 
 echo "[LAUNCHER] Starting khra_gixx_1024_v5 daemon..."
-nohup ./build/khra_gixx_1024_v5 > logs/v5_stdout.log 2> logs/v5_stderr.log &
+nohup ./beast-build/khra_gixx_1024_v5 > logs/v5_stdout.log 2> logs/v5_stderr.log &
 DAEMON_PID=$!
 echo "[LAUNCHER] Daemon PID: $DAEMON_PID"
 
