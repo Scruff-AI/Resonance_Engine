@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Resonance Engine — EM Spectrum Overlay</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#08080d;--bg2:#10101a;--bg3:#181826;--bg4:#20202e;
+--t1:#e8e6e0;--t2:#9a98a0;--t3:#5a586a;--ac:#7f77dd;
+--radio:#854f0b;--micro:#ba7517;--ir:#e24b4a;--vis-r:#e24b4a;--vis-g:#639922;--vis-b:#378add;--uv:#7f77dd;--xray:#378add;--gamma:#d4537e;
+--khra:#7f77dd;--gixx:#d85a30
+}
+body{background:var(--bg);color:var(--t1);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden}
+.hero{text-align:center;padding:48px 20px 24px;background:radial-gradient(ellipse at 50% 0%,rgba(127,119,221,.06),transparent 70%)}
+.hero h1{font-family:'Source Serif 4',serif;font-size:clamp(24px,4vw,42px);font-weight:300;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px}
+.hero h1 em{font-style:italic;color:var(--ac)}
+.hero p{font-size:13px;color:var(--t2);max-width:600px;margin:0 auto;line-height:1.6}
+.ctrl{position:sticky;top:0;z-index:100;background:rgba(8,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.05);padding:12px 20px}
+.ctrl-row{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ctrl label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+.ctrl input[type=range]{flex:1;min-width:200px;accent-color:var(--ac)}
+.ctrl .val{font-size:14px;font-weight:500;color:var(--t1);min-width:90px;text-align:right}
+.ctrl select{background:var(--bg2);color:var(--t1);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;font-family:inherit;font-size:12px}
+.spectrum{max-width:960px;margin:20px auto;padding:0 16px;position:relative}
+canvas{width:100%;border-radius:8px;cursor:crosshair}
+.legend{max-width:960px;margin:8px auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t2)}
+.dot{width:10px;height:10px;border-radius:2px}
+.info{max-width:700px;margin:40px auto;padding:0 20px}
+.info h2{font-family:'Source Serif 4',serif;font-size:20px;font-weight:400;color:var(--t1);margin-bottom:12px}
+.info p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px}
+.info code{background:var(--bg3);padding:2px 6px;border-radius:3px;font-size:12px;color:var(--ac)}
+.tip{background:var(--bg2);border-left:3px solid var(--ac);padding:12px 16px;border-radius:0 6px 6px 0;margin:16px 0;font-size:12px;color:var(--t2);line-height:1.6}
+.stats{max-width:960px;margin:0 auto 16px;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat{background:var(--bg2);border-radius:8px;padding:12px 14px;text-align:center}
+.stat .n{font-size:20px;font-weight:600;color:var(--t1)}
+.stat .l{font-size:10px;color:var(--t3);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.tooltip{position:fixed;display:none;background:var(--bg3);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--t1);pointer-events:none;z-index:200;max-width:300px;line-height:1.5;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.csv-box{max-width:960px;margin:30px auto;padding:0 16px}
+.csv-box textarea{width:100%;height:60px;background:var(--bg2);color:var(--t2);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:11px;resize:vertical}
+.csv-box .btns{display:flex;gap:8px;margin-top:6px}
+.csv-box button{background:var(--bg3);color:var(--t2);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:5px 12px;font-family:inherit;font-size:11px;cursor:pointer}
+.csv-box button:hover{background:var(--bg4);color:var(--t1)}
+.csv-box button.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+footer{text-align:center;padding:40px 20px;font-size:10px;color:var(--t3);border-top:1px solid rgba(255,255,255,.03);margin-top:50px}
+footer a{color:var(--ac);text-decoration:none}
+@media(max-width:600px){.ctrl-row{flex-direction:column;align-items:stretch}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+<h1>Lattice harmonics on the <em>electromagnetic spectrum</em></h1>
+<p>The Khra and Gixx waves on a 1024-cell LBM lattice produce frequencies that land on the real EM spectrum. Slide the cell size to see where. Known physics markers show what lives at each frequency.</p>
+</div>
+
+<div class="ctrl"><div class="ctrl-row">
+<label>Cell size</label>
+<input type="range" id="scaleSlider" min="-35" max="2" step="0.5" value="-10">
+<div class="val" id="scaleVal">10^-10 m</div>
+<select id="preset">
+<option value="">Presets...</option>
+<option value="-35">Planck length</option>
+<option value="-15">Nuclear (fm)</option>
+<option value="-10">Atomic (Angstrom)</option>
+<option value="-6">Micron</option>
+<option value="-3">Millimetre</option>
+<option value="0">Metre</option>
+</select>
+</div></div>
+
+<div class="stats">
+<div class="stat"><div class="n" id="sKhra">--</div><div class="l">Khra freq (Hz)</div></div>
+<div class="stat"><div class="n" id="sGixx">--</div><div class="l">Gixx freq (Hz)</div></div>
+<div class="stat"><div class="n" id="sBand">--</div><div class="l">Khra band</div></div>
+<div class="stat"><div class="n" id="sRatio">16:1</div><div class="l">Frequency ratio</div></div>
+<div class="stat"><div class="n" id="sSweep">0</div><div class="l">Sweep points</div></div>
+</div>
+
+<div class="spectrum">
+<canvas id="spec" height="520"></canvas>
+</div>
+
+<div class="legend">
+<div class="leg"><div class="dot" style="background:#854f0b"></div>Radio</div>
+<div class="leg"><div class="dot" style="background:#ba7517"></div>Microwave</div>
+<div class="leg"><div class="dot" style="background:#e24b4a"></div>Infrared</div>
+<div class="leg"><div class="dot" style="background:linear-gradient(90deg,#e24b4a,#ef9f27,#639922,#378add,#7f77dd)"></div>Visible</div>
+<div class="leg"><div class="dot" style="background:#7f77dd"></div>UV</div>
+<div class="leg"><div class="dot" style="background:#378add"></div>X-ray</div>
+<div class="leg"><div class="dot" style="background:#d4537e"></div>Gamma</div>
+<div class="leg"><div class="dot" style="background:#7f77dd;border:2px solid #fff"></div>Khra</div>
+<div class="leg"><div class="dot" style="background:#d85a30;border:2px solid #fff"></div>Gixx</div>
+<div class="leg"><div class="dot" style="background:#5dcaa5"></div>Physics markers</div>
+</div>
+
+<div class="csv-box">
+<label style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">Sweep CSV data</label>
+<textarea id="csvIn" placeholder="Paste CSV: omega,khra_amp,gixx_amp,coherence,temperature,power,cycle"></textarea>
+<div class="btns">
+<button class="pri" onclick="loadCSV()">Load CSV</button>
+<button onclick="loadDemo()">Demo data</button>
+<button onclick="clearCSV()">Clear</button>
+</div>
+</div>
+
+<div class="info">
+<h2>What this shows</h2>
+<p>The x-axis is the full electromagnetic spectrum from 1 Hz (radio) to 10^24 Hz (gamma rays) on a logarithmic scale. The colored bands are the real EM spectrum regions that govern everything from radio broadcasts to nuclear decay.</p>
+<p>The two vertical glowing lines are the Khra wave (purple, wavelength 128 cells) and Gixx wave (orange, wavelength 8 cells). Their position on the spectrum depends entirely on the cell size slider: what physical size does one lattice cell represent?</p>
+<p>The green diamonds are known physics: hydrogen spectral lines, the CMB peak, particle rest-mass frequencies (electron, muon, proton, W/Z bosons, Higgs), and force unification scales. These are fixed — they don't move.</p>
+<div class="tip">The key question: is there a cell size where the Khra and Gixx lines land on or near known physics markers? If coherence peaks from the sweep cluster near those same frequencies, the lattice isn't just producing waves — it's producing the same waves that nature uses.</div>
+<p>When you load sweep data, each point appears as a dot on the spectrum. The dot's vertical position is its coherence. Brighter dots are higher coherence. The sweep spans many omega/khra/gixx values, so dots spread across a frequency range — the spread itself reveals whether the lattice has preferred frequencies (clustering) or is featureless (uniform scatter).</p>
+<h2>The Khra-Gixx frequency ratio</h2>
+<p>Khra has wavelength 128 cells. Gixx has wavelength 8 cells. The ratio is always 16:1 — Gixx is always 16 times higher frequency than Khra. On the spectrum, they're always 1.2 decades apart. This is the lattice's built-in dual-scale hierarchy: the same structural feature that gives atoms inner shells (tight, high-energy) and outer shells (loose, low-energy).</p>
+<h2>Overtones</h2>
+<p>The Khra fundamental at 128 cells has overtones at 64, 32, 16, 8, 4, 2 cells. The Gixx fundamental at 8 cells has overtones at 4, 2 cells. These overtones appear as fainter lines on the spectrum. The complete overtone series is the lattice's harmonic fingerprint — the set of all frequencies the lattice can naturally produce.</p>
+</div>
+
+<footer>
+Resonance Engine — <a href="https://github.com/Scruff-AI/Resonance_Engine">Scruff-AI/Resonance_Engine</a> — EM Spectrum Overlay v1.0
+<br>D2Q9 LBM, 1024x1024 grid, Khra lambda=128, Gixx lambda=8, c_s = 1/sqrt(3)
+</footer>
+
+<div class="tooltip" id="tip"></div>
+
+<script>
+var CS = 1/Math.sqrt(3);
+var GRID = 1024;
+var KHRA_WL = 128;
+var GIXX_WL = 8;
+var KHRA_OVERTONES = [128,64,32,16,8,4,2];
+var GIXX_OVERTONES = [8,4,2];
+
+var BANDS = [
+{name:'Radio',lo:0,hi:9,color:'#854f0b',bg:'rgba(133,79,11,.12)'},
+{name:'Microwave',lo:9,hi:11.5,color:'#ba7517',bg:'rgba(186,117,23,.12)'},
+{name:'Infrared',lo:11.5,hi:14.3,color:'#e24b4a',bg:'rgba(226,75,74,.10)'},
+{name:'Visible',lo:14.3,hi:14.7,color:'#639922',bg:'rgba(99,153,34,.15)'},
+{name:'UV',lo:14.7,hi:16.7,color:'#7f77dd',bg:'rgba(127,119,221,.10)'},
+{name:'X-ray',lo:16.7,hi:19.5,color:'#378add',bg:'rgba(55,138,221,.10)'},
+{name:'Gamma',lo:19.5,hi:25,color:'#d4537e',bg:'rgba(212,83,126,.10)'}
+];
+
+var MARKERS = [
+{name:'Hydrogen 21cm',freq:1.420e9,cat:'spectral'},
+{name:'CMB peak (2.725K)',freq:1.602e11,cat:'cosmic'},
+{name:'H2O rotation',freq:2.228e10,cat:'molecular'},
+{name:'H Balmer-alpha (656nm)',freq:4.571e14,cat:'spectral'},
+{name:'H Lyman-alpha (122nm)',freq:2.466e15,cat:'spectral'},
+{name:'H ionization (13.6eV)',freq:3.288e15,cat:'spectral'},
+{name:'He ionization (24.6eV)',freq:5.945e15,cat:'spectral'},
+{name:'Electron (0.511 MeV)',freq:1.236e20,cat:'particle'},
+{name:'Muon (105.7 MeV)',freq:2.554e22,cat:'particle'},
+{name:'Pion (135 MeV)',freq:3.264e22,cat:'particle'},
+{name:'Proton (938 MeV)',freq:2.269e23,cat:'particle'},
+{name:'W boson (80.4 GeV)',freq:1.944e25,cat:'particle'},
+{name:'Z boson (91.2 GeV)',freq:2.205e25,cat:'particle'},
+{name:'Higgs (125 GeV)',freq:3.024e25,cat:'particle'},
+{name:'Lambda-QCD (200 MeV)',freq:4.836e22,cat:'force'},
+{name:'EW unification (246 GeV)',freq:5.949e25,cat:'force'}
+];
+
+var sweepData = [];
+var cellExp = -10;
+
+function freq(wavelength, cSize) {
+  return CS / (wavelength * cSize);
+}
+
+function logF(f) {return f > 0 ? Math.log10(f) : 0;}
+
+function bandAt(lf) {
+  for (var i = 0; i < BANDS.length; i++) {
+    if (lf >= BANDS[i].lo && lf < BANDS[i].hi) return BANDS[i].name;
+  }
+  return lf < 0 ? 'Sub-radio' : 'Beyond gamma';
+}
+
+function fmtHz(f) {
+  if (f < 1e3) return f.toFixed(1) + ' Hz';
+  if (f < 1e6) return (f/1e3).toFixed(1) + ' kHz';
+  if (f < 1e9) return (f/1e6).toFixed(1) + ' MHz';
+  if (f < 1e12) return (f/1e9).toFixed(1) + ' GHz';
+  if (f < 1e15) return (f/1e12).toFixed(1) + ' THz';
+  return f.toExponential(2) + ' Hz';
+}
+
+function draw() {
+  var canvas = document.getElementById('spec');
+  var W = canvas.parentElement.clientWidth;
+  canvas.width = W * 2; canvas.height = 520 * 2;
+  canvas.style.height = '520px';
+  var ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+  var w = W, h = 520;
+  var ml = 50, mr = 20, mt = 30, mb = 80;
+  var pw = w - ml - mr, ph = h - mt - mb;
+  var logMin = 0, logMax = 26;
+  var cSize = Math.pow(10, cellExp);
+
+  function xOf(lf) {return ml + (lf - logMin) / (logMax - logMin) * pw;}
+  function yOf(coh) {return mt + (1 - coh) * ph;}
+
+  ctx.clearRect(0, 0, w, h);
+
+  // EM bands
+  for (var i = 0; i < BANDS.length; i++) {
+    var b = BANDS[i];
+    var x1 = xOf(b.lo), x2 = xOf(b.hi);
+    ctx.fillStyle = b.bg;
+    ctx.fillRect(x1, mt, x2 - x1, ph);
+    ctx.fillStyle = b.color;
+    ctx.font = '500 11px "JetBrains Mono"';
+    ctx.textAlign = 'center';
+    ctx.fillText(b.name, (x1 + x2) / 2, h - mb + 16);
+  }
+
+  // Visible light gradient bar
+  var visX1 = xOf(14.3), visX2 = xOf(14.7);
+  var grad = ctx.createLinearGradient(visX1, 0, visX2, 0);
+  grad.addColorStop(0, 'rgba(226,75,74,.3)');
+  grad.addColorStop(0.2, 'rgba(239,159,39,.3)');
+  grad.addColorStop(0.4, 'rgba(239,239,39,.3)');
+  grad.addColorStop(0.55, 'rgba(99,153,34,.3)');
+  grad.addColorStop(0.75, 'rgba(55,138,221,.3)');
+  grad.addColorStop(1, 'rgba(127,119,221,.3)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(visX1, mt, visX2 - visX1, ph);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,.04)';
+  ctx.lineWidth = 0.5;
+  for (var g = 0; g <= 26; g += 2) {
+    var gx = xOf(g);
+    ctx.beginPath(); ctx.moveTo(gx, mt); ctx.lineTo(gx, mt + ph); ctx.stroke();
+  }
+  for (var gc = 0; gc <= 1; gc += 0.2) {
+    var gy = yOf(gc);
+    ctx.beginPath(); ctx.moveTo(ml, gy); ctx.lineTo(ml + pw, gy); ctx.stroke();
+  }
+
+  // X axis labels
+  ctx.fillStyle = '#5a586a';
+  ctx.font = '10px "JetBrains Mono"';
+  ctx.textAlign = 'center';
+  for (var xl = 0; xl <= 26; xl += 2) {
+    ctx.fillText('10' + sup(xl), xOf(xl), h - mb + 32);
+  }
+  ctx.fillText('Frequency (Hz)', ml + pw / 2, h - mb + 50);
+
+  // Y axis labels
+  ctx.textAlign = 'right';
+  for (var yl = 0; yl <= 1; yl += 0.2) {
+    ctx.fillText(yl.toFixed(1), ml - 6, yOf(yl) + 3);
+  }
+  ctx.save();
+  ctx.translate(12, mt + ph / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center';
+  ctx.fillText('Coherence', 0, 0);
+  ctx.restore();
+
+  // Physics markers
+  for (var mi = 0; mi < MARKERS.length; mi++) {
+    var m = MARKERS[mi];
+    var mx = xOf(logF(m.freq));
+    if (mx < ml || mx > ml + pw) continue;
+    ctx.strokeStyle = m.cat === 'particle' ? 'rgba(93,202,165,.5)' : m.cat === 'spectral' ? 'rgba(93,202,165,.35)' : m.cat === 'cosmic' ? 'rgba(250,199,117,.4)' : 'rgba(93,202,165,.3)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(mx, mt + 4); ctx.lineTo(mx, mt + ph - 4); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Label (alternating top/bottom to avoid overlap)
+    ctx.fillStyle = 'rgba(93,202,165,.7)';
+    ctx.font = '9px "JetBrains Mono"';
+    ctx.textAlign = 'left';
+    ctx.save();
+    ctx.translate(mx + 3, mi % 2 === 0 ? mt + 14 + (mi % 4) * 10 : mt + ph - 10 - (mi % 4) * 10);
+    ctx.rotate(-0.3);
+    ctx.fillText(m.name, 0, 0);
+    ctx.restore();
+  }
+
+  // Khra line + overtones
+  var kf = freq(KHRA_WL, cSize);
+  var klf = logF(kf);
+  if (klf >= logMin && klf <= logMax) {
+    ctx.strokeStyle = '#7f77dd';
+    ctx.lineWidth = 3;
+    ctx.globalAlpha = 0.8;
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(xOf(klf), mt); ctx.lineTo(xOf(klf), mt + ph); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#7f77dd';
+    ctx.font = '500 12px "JetBrains Mono"';
+    ctx.textAlign = 'center';
+    ctx.fillText('KHRA', xOf(klf), mt - 6);
+    ctx.font = '9px "JetBrains Mono"';
+    ctx.fillText(fmtHz(kf), xOf(klf), mt - 18);
+  }
+  // Khra overtones
+  for (var ko = 1; ko < KHRA_OVERTONES.length; ko++) {
+    var kof = freq(KHRA_OVERTONES[ko], cSize);
+    var kolf = logF(kof);
+    if (kolf >= logMin && kolf <= logMax) {
+      ctx.strokeStyle = 'rgba(127,119,221,' + (0.4 - ko * 0.05) + ')';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 6]);
+      ctx.beginPath(); ctx.moveTo(xOf(kolf), mt); ctx.lineTo(xOf(kolf), mt + ph); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+
+  // Gixx line + overtones
+  var gf = freq(GIXX_WL, cSize);
+  var glf = logF(gf);
+  if (glf >= logMin && glf <= logMax) {
+    ctx.strokeStyle = '#d85a30';
+    ctx.lineWidth = 3;
+    ctx.globalAlpha = 0.8;
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(xOf(glf), mt); ctx.lineTo(xOf(glf), mt + ph); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#d85a30';
+    ctx.font = '500 12px "JetBrains Mono"';
+    ctx.textAlign = 'center';
+    ctx.fillText('GIXX', xOf(glf), mt - 6);
+    ctx.font = '9px "JetBrains Mono"';
+    ctx.fillText(fmtHz(gf), xOf(glf), mt - 18);
+  }
+  for (var go2 = 1; go2 < GIXX_OVERTONES.length; go2++) {
+    var gof = freq(GIXX_OVERTONES[go2], cSize);
+    var golf = logF(gof);
+    if (golf >= logMin && golf <= logMax) {
+      ctx.strokeStyle = 'rgba(216,90,48,' + (0.35 - go2 * 0.1) + ')';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 6]);
+      ctx.beginPath(); ctx.moveTo(xOf(golf), mt); ctx.lineTo(xOf(golf), mt + ph); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+
+  // Sweep data points
+  if (sweepData.length > 0) {
+    for (var si = 0; si < sweepData.length; si++) {
+      var sd = sweepData[si];
+      var skf = freq(KHRA_WL, cSize);
+      var sgf = freq(GIXX_WL, cSize);
+      var sklf = logF(skf);
+      var sglf = logF(sgf);
+      var coh = sd.coherence || 0.5;
+      var alpha = 0.3 + coh * 0.6;
+      var radius = 2 + coh * 4;
+
+      // Khra point
+      if (sklf >= logMin && sklf <= logMax) {
+        ctx.fillStyle = 'rgba(127,119,221,' + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(xOf(sklf), yOf(coh), radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Gixx point
+      if (sglf >= logMin && sglf <= logMax) {
+        ctx.fillStyle = 'rgba(216,90,48,' + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(xOf(sglf), yOf(coh), radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  // Update stats
+  document.getElementById('sKhra').textContent = kf > 0 ? kf.toExponential(2) : '--';
+  document.getElementById('sGixx').textContent = gf > 0 ? gf.toExponential(2) : '--';
+  document.getElementById('sBand').textContent = bandAt(klf);
+  document.getElementById('sSweep').textContent = sweepData.length;
+
+  // Find nearest markers
+  var nearK = findNearest(klf);
+  var nearG = findNearest(glf);
+  if (nearK || nearG) {
+    var info = '';
+    if (nearK && nearK.dist < 1.5) info += 'Khra near ' + nearK.marker.name + ' (' + nearK.dist.toFixed(2) + ' dec) ';
+    if (nearG && nearG.dist < 1.5) info += 'Gixx near ' + nearG.marker.name + ' (' + nearG.dist.toFixed(2) + ' dec)';
+    if (info) {
+      ctx.fillStyle = 'rgba(93,202,165,.8)';
+      ctx.font = '10px "JetBrains Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText(info, ml + pw / 2, h - 6);
+    }
+  }
+}
+
+function findNearest(lf) {
+  var best = null, bestDist = Infinity;
+  for (var i = 0; i < MARKERS.length; i++) {
+    var d = Math.abs(lf - logF(MARKERS[i].freq));
+    if (d < bestDist) {bestDist = d; best = MARKERS[i];}
+  }
+  return best ? {marker: best, dist: bestDist} : null;
+}
+
+function sup(n) {
+  var s = {'0':'\u2070','1':'\u00b9','2':'\u00b2','3':'\u00b3','4':'\u2074','5':'\u2075','6':'\u2076','7':'\u2077','8':'\u2078','9':'\u2079'};
+  return String(Math.round(n)).split('').map(function(c){return s[c]||c;}).join('');
+}
+
+function parseCSV(text) {
+  var lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  var headers = lines[0].split(',').map(function(h){return h.trim().toLowerCase();});
+  var data = [];
+  for (var i = 1; i < lines.length; i++) {
+    var vals = lines[i].split(',');
+    if (vals.length < headers.length) continue;
+    var row = {};
+    for (var j = 0; j < headers.length; j++) row[headers[j]] = parseFloat(vals[j]) || 0;
+    if (row.omega > 0) data.push(row);
+  }
+  return data;
+}
+
+function loadCSV() {
+  sweepData = parseCSV(document.getElementById('csvIn').value);
+  draw();
+}
+
+function loadDemo() {
+  var lines = ['omega,khra_amp,gixx_amp,coherence,temperature,power,cycle'];
+  var omegas = [];
+  for (var o = 1.50; o <= 2.00; o += 0.036) omegas.push(parseFloat(o.toFixed(4)));
+  var khras = [0.010,0.020,0.030,0.040,0.050];
+  var gixxs = [0.002,0.005,0.008,0.012,0.016];
+  for (var oi = 0; oi < omegas.length; oi++) {
+    for (var ki = 0; ki < khras.length; ki++) {
+      var om = omegas[oi], kh = khras[ki], gx = gixxs[ki];
+      var od = Math.abs(om - 1.80);
+      var kd = Math.abs(kh - 0.030);
+      var c = 0.82*Math.exp(-od*3)*Math.exp(-kd*40) + 0.05*Math.exp(-(om-1.618)*(om-1.618)*50) + (Math.random()-0.5)*0.02 + 0.5;
+      c = Math.max(0.45, Math.min(0.95, c));
+      var t = 55+om*3+kh*50+(Math.random()-0.5)*2;
+      var p = 260+om*20+kh*200+(Math.random()-0.5)*5;
+      lines.push([om,kh,gx,c.toFixed(4),t.toFixed(1),p.toFixed(1),1000].join(','));
+    }
+  }
+  document.getElementById('csvIn').value = lines.join('\n');
+  sweepData = parseCSV(lines.join('\n'));
+  draw();
+}
+
+function clearCSV() {
+  sweepData = [];
+  document.getElementById('csvIn').value = '';
+  draw();
+}
+
+// Mouse tooltip
+var canvas = document.getElementById('spec');
+canvas.addEventListener('mousemove', function(e) {
+  var rect = canvas.getBoundingClientRect();
+  var x = e.clientX - rect.left;
+  var w = rect.width;
+  var ml2 = 50, mr2 = 20;
+  var pw2 = w - ml2 - mr2;
+  var lf = (x - ml2) / pw2 * 26;
+  if (lf < 0 || lf > 26) {document.getElementById('tip').style.display='none'; return;}
+  var f = Math.pow(10, lf);
+  var cSize = Math.pow(10, cellExp);
+  var near = findNearest(lf);
+  var html = '<div style="color:var(--t1);font-weight:500">' + fmtHz(f) + '</div>';
+  html += '<div style="color:var(--t3)">10^' + lf.toFixed(1) + ' Hz | ' + bandAt(lf) + '</div>';
+  if (near && near.dist < 2) html += '<div style="color:#5dcaa5;margin-top:4px">Nearest: ' + near.marker.name + ' (' + near.dist.toFixed(2) + ' decades)</div>';
+  var tip = document.getElementById('tip');
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX + 16) + 'px';
+  tip.style.top = (e.clientY - 10) + 'px';
+});
+canvas.addEventListener('mouseleave', function() {
+  document.getElementById('tip').style.display = 'none';
+});
+
+// Controls
+document.getElementById('scaleSlider').addEventListener('input', function() {
+  cellExp = parseFloat(this.value);
+  document.getElementById('scaleVal').textContent = '10^' + cellExp + ' m';
+  draw();
+});
+document.getElementById('preset').addEventListener('change', function() {
+  if (this.value) {
+    cellExp = parseFloat(this.value);
+    document.getElementById('scaleSlider').value = cellExp;
+    document.getElementById('scaleVal').textContent = '10^' + cellExp + ' m';
+    draw();
+    this.value = '';
+  }
+});
+
+window.addEventListener('resize', draw);
+draw();
+</script>
+</body>
+</html>

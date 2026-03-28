@@ -19,8 +19,8 @@ latest_telemetry = {
     "coherence": 0.0,
     "asymmetry": 0.0,
     "torque": 0.0,
-    "gpu_temp": 0.0,
-    "gpu_power": 0.0,
+    "gpu_temp_c": 0.0,
+    "gpu_power_w": 0.0,
     "grid": 512,
     "timestamp": None
 }

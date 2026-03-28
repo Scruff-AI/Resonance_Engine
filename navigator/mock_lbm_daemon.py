@@ -31,7 +31,10 @@ def mock_daemon():
             "h64": h64,
             "h32": h32,
             "vorticity": vorticity,
-            "power_w": 50.0 + abs(khra) * 5.0,
+            "asymmetry": abs(khra - gixx) * 0.1,
+            "gpu_power_w": 50.0 + abs(khra) * 5.0,
+            "gpu_temp_c": 45.0 + abs(khra) * 2.0,
+            "gpu_mem_pct": 35.0,
             "grid": 1024
         }
         
