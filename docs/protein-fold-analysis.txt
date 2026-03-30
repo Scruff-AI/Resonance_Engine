@@ -1,0 +1,202 @@
+======================================================================
+ PROTEIN FOLDING FRACTAL ECHO ANALYZER
+======================================================================
+ Source: D:\Resonance_Engine\sweep_results\em_direct_sweep_20260327_080716.csv  
+ Points: 375
+ Coherence: 0.737800 to 0.852700
+ Mean=0.750005 Std=0.026647
+
+======================================================================
+ TEST 1: BASIN COUNTING (Ramachandran has 4-5 basins)
+======================================================================
+ om=0.5:   9 distinct,  1 basins
+ om=0.6:  10 distinct,  1 basins
+ om=0.7:   5 distinct,  1 basins
+ om=0.8:   7 distinct,  2 basins
+ om=0.9:   5 distinct,  1 basins
+ om=1.0:   6 distinct,  2 basins
+ om=1.1:   6 distinct,  1 basins
+ om=1.2:   6 distinct,  1 basins
+ om=1.3:   7 distinct,  1 basins
+ om=1.4:   7 distinct,  2 basins
+ om=1.5:   8 distinct,  2 basins
+ om=1.6:   7 distinct,  2 basins
+ om=1.7:   8 distinct,  2 basins
+ om=1.8:   7 distinct,  2 basins
+ om=1.9:   3 distinct,  1 basins
+
+ Slices with 3-6 basins: 0/15
+
+======================================================================
+ TEST 2: FORBIDDEN FRACTION (Ramachandran ~35% allowed)
+======================================================================
+ Top 35% threshold: 0.739500
+ Allowed fraction: 44.3%
+ Ramachandran target: 35%
+ Difference: 9.3%
+ PASS
+
+======================================================================
+ TEST 3: FUNNEL TOPOLOGY (proteins have positive skewness)
+======================================================================
+ 0.7378-0.7493:   318 ########################################
+ 0.7493-0.7608:     0
+ 0.7608-0.7723:     0
+ 0.7723-0.7838:     0
+ 0.7838-0.7953:    24 ###
+ 0.7953-0.8067:     3
+ 0.8067-0.8182:     1
+ 0.8182-0.8297:    26 ###
+ 0.8297-0.8412:     0
+ 0.8412-0.8527:     3
+
+ Skewness: +2.1874
+ >>> FUNNEL DETECTED
+
+======================================================================
+ TEST 4: AMINO ACID CLASS MAPPING (5 classes expected)
+======================================================================
+ om=0.5: range=0.002100 -> beta_branched
+ om=0.6: range=0.001800 -> pre_proline
+ om=0.7: range=0.001300 -> pre_proline
+ om=0.8: range=0.001500 -> pre_proline
+ om=0.9: range=0.002200 -> beta_branched
+ om=1.0: range=0.001700 -> pre_proline
+ om=1.1: range=0.001400 -> pre_proline
+ om=1.2: range=0.001100 -> pre_proline
+ om=1.3: range=0.001700 -> pre_proline
+ om=1.4: range=0.001800 -> pre_proline
+ om=1.5: range=0.002000 -> beta_branched
+ om=1.6: range=0.001700 -> pre_proline
+ om=1.7: range=0.114900 -> glycine
+ om=1.8: range=0.018900 -> general
+ om=1.9: range=0.011800 -> general
+
+ Classes found: 4/5 = ['beta_branched', 'general', 'glycine', 'pre_proline']    
+
+======================================================================
+ TEST 5: LEVINTHAL COMPRESSION
+======================================================================
+ Combinations: 375
+ Distinct modes: 39
+ Compression: 9.6:1
+
+======================================================================
+ TEST 6: HIERARCHICAL STRUCTURE
+======================================================================
+ CATH: 4 classes -> 41 arch -> 1393 topo
+ Lattice: 15 classes -> 39 topo
+
+======================================================================
+ VERDICT
+======================================================================
+ Basin count (3-6)                     FAIL
+ Forbidden fraction (25-45%)           PASS
+ Funnel topology                       PASS
+ Amino acid classes (3+/5)             PASS
+ Levinthal compression (>2:1)          PASS
+ Hierarchical structure                PASS
+
+ PASSED: 5/6
+ STRONG EVIDENCE: Fractal echo extends to protein folding
+======================================================================
+ PROTEIN FOLDING FRACTAL ECHO ANALYZER
+======================================================================
+ Source: D:\Resonance_Engine\sweep_results\em_direct_sweep_20260327_145447.csv  
+ Points: 375
+ Coherence: 0.737000 to 0.739300
+ Mean=0.738280 Std=0.000571
+
+======================================================================
+ TEST 1: BASIN COUNTING (Ramachandran has 4-5 basins)
+======================================================================
+ om=0.5:   6 distinct,  2 basins
+ om=0.6:   3 distinct,  1 basins
+ om=0.7:   8 distinct,  2 basins
+ om=0.8:   8 distinct,  2 basins
+ om=0.9:   8 distinct,  1 basins
+ om=1.0:   3 distinct,  1 basins
+ om=1.1:  10 distinct,  2 basins
+ om=1.2:   5 distinct,  2 basins
+ om=1.3:  10 distinct,  1 basins
+ om=1.4:   4 distinct,  1 basins
+ om=1.5:  11 distinct,  3 basins <<<
+ om=1.6:   8 distinct,  1 basins
+ om=1.7:  11 distinct,  1 basins
+ om=1.8:   8 distinct,  2 basins
+ om=1.9:   2 distinct,  1 basins
+
+ Slices with 3-6 basins: 1/15
+
+======================================================================
+ TEST 2: FORBIDDEN FRACTION (Ramachandran ~35% allowed)
+======================================================================
+ Top 35% threshold: 0.738500
+ Allowed fraction: 40.0%
+ Ramachandran target: 35%
+ Difference: 5.0%
+ PASS
+
+======================================================================
+ TEST 3: FUNNEL TOPOLOGY (proteins have positive skewness)
+======================================================================
+ 0.7370-0.7372:    15 #########
+ 0.7372-0.7375:     8 ####
+ 0.7375-0.7377:    33 ####################
+ 0.7377-0.7379:    53 ################################
+ 0.7379-0.7381:    66 ########################################
+ 0.7381-0.7384:    37 ######################
+ 0.7384-0.7386:    50 ##############################
+ 0.7386-0.7388:    33 ####################
+ 0.7388-0.7391:    31 ##################
+ 0.7391-0.7393:    49 #############################
+
+ Skewness: -0.0718
+ >>> FLAT LANDSCAPE
+
+======================================================================
+ TEST 4: AMINO ACID CLASS MAPPING (5 classes expected)
+======================================================================
+ om=0.5: range=0.000700 -> pre_proline
+ om=0.6: range=0.001500 -> pre_proline
+ om=0.7: range=0.001800 -> pre_proline
+ om=0.8: range=0.000900 -> pre_proline
+ om=0.9: range=0.001100 -> pre_proline
+ om=1.0: range=0.000500 -> pre_proline
+ om=1.1: range=0.001800 -> pre_proline
+ om=1.2: range=0.000900 -> pre_proline
+ om=1.3: range=0.001400 -> pre_proline
+ om=1.4: range=0.001400 -> pre_proline
+ om=1.5: range=0.002300 -> beta_branched
+ om=1.6: range=0.001900 -> pre_proline
+ om=1.7: range=0.002000 -> beta_branched
+ om=1.8: range=0.001800 -> pre_proline
+ om=1.9: range=0.000200 -> proline
+
+ Classes found: 3/5 = ['beta_branched', 'pre_proline', 'proline']
+
+======================================================================
+ TEST 5: LEVINTHAL COMPRESSION
+======================================================================
+ Combinations: 375
+ Distinct modes: 23
+ Compression: 16.3:1
+
+======================================================================
+ TEST 6: HIERARCHICAL STRUCTURE
+======================================================================
+ CATH: 4 classes -> 41 arch -> 1393 topo
+ Lattice: 15 classes -> 23 topo
+
+======================================================================
+ VERDICT
+======================================================================
+ Basin count (3-6)                     FAIL
+ Forbidden fraction (25-45%)           PASS
+ Funnel topology                       FAIL
+ Amino acid classes (3+/5)             PASS
+ Levinthal compression (>2:1)          PASS
+ Hierarchical structure                PASS
+
+ PASSED: 4/6
+ STRONG EVIDENCE: Fractal echo extends to protein folding
