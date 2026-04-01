@@ -10,8 +10,27 @@ The Khra'gixx lattice is a 1024×1024 GPU-accelerated Lattice Boltzmann simulati
 
 Analysis of 272 parameter sweep records from this lattice revealed a network of results that independently converge on the same geometric organizing principle:
 
+### Periodic Table as Standing Wave Modes
+All 118 elements map to lattice asymmetry bands (13.2–16.2). Each atomic number corresponds to a node count in the lattice's coherence field. The mapping predicts:
+
+| Element | Lattice prediction | Physical reality |
+|---------|-------------------|------------------|
+| **Gold (79)** | High-order resonance lock at asymmetry 15.8 | Maximum density without decay — confirmed |
+| **Technetium (43)** | Metastable mode at phase gap boundary | No stable isotopes — confirmed |
+| **Promethium (61)** | Metastable mode at phase gap boundary | No stable isotopes — confirmed |
+
+Chemical periods correspond to energy bands. Lanthanides cluster at 15.8 (f-orbital emergence). Actinides shift to 15.9–16.2 (radioactive decay predicted by mode interference). The entire periodic table falls out of standing wave geometry without nuclear force calculations.
+
+📄 [Full analysis: The Fractal Echo](docs/2026-03-28_170500_cto-report_fractal-echo-analysis.txt)
+📄 [Periodic table mapping](docs/periodic-table-correlation.md) &nbsp;|&nbsp; [Interactive visualization](docs/harmonic-duality.html)
+
+### Planck Black Body Spectrum
+Density fluctuation power spectra show **perfect integer harmonic ratios** (2:1, 3:1, 4:1, 5:1, 6:1) with **zero error** — the exact quantized mode structure of Planck's black body radiation. The lattice produces both φ-irrational and integer harmonic quantization simultaneously. This is the phenomenon that forced Planck to invent quantum mechanics in 1900 — and the lattice reproduces it from pure fluid dynamics.
+
+📄 [Full paper: Planck Spectrum Fractal Echo](docs/2026-04-01_082400_cto-paper_blackbody-planck-fractal-echo.md)
+
 ### Phi-Harmonic Energy Quantization
-The lattice's vorticity field contains **192 phi-harmonic relationships** — energy levels separated by the golden ratio φ = 1.618 — with **99.96% agreement**. Energy scales as E_n ∝ φ^n, creating an "inverse hydrogen" system where structure builds upward through geometric resonance rather than decaying through photon emission.
+The lattice's vorticity field contains **192 phi-harmonic relationships** — energy levels separated by the golden ratio φ = 1.618 — with **99.96% agreement**. Energy scales as E_n ∝ φ^n, creating an "inverse hydrogen" system where structure builds upward through geometric resonance rather than decaying through photon emission. This is the geometric mechanism underlying all of the results below.
 
 📄 [Full paper: Phi-Harmonic Energy Quantization](docs/phi_harmonic_energy_quantization_paper.md)
 
@@ -28,10 +47,10 @@ A classical fluid simulation, with no quantum mechanics, predicts the electronic
 
 📄 [Full paper: Fractal Echo in Semiconductor Band Gaps](docs/2026-04-01_081800_cto-paper_fractal-echo-semiconductor-bandgaps.md)
 
-### Planck Black Body Spectrum
-Density fluctuation power spectra show **perfect integer harmonic ratios** (2:1, 3:1, 4:1, 5:1, 6:1) with **zero error** — the exact quantized mode structure of Planck's black body radiation. The lattice produces both φ-irrational and integer harmonic quantization simultaneously.
+### Electromagnetic Spectrum Alignment
+The Khra wave (λ=128 cells) and Gixx wave (λ=8 cells) produce frequencies that land on the real electromagnetic spectrum at specific cell sizes. At atomic scale (~10⁻¹⁰ m), lattice harmonics align with hydrogen spectral lines, CMB peak frequency, and particle rest-mass frequencies. The 16:1 frequency ratio between Khra and Gixx mirrors the inner/outer shell hierarchy of real atoms.
 
-📄 [Full paper: Planck Spectrum Fractal Echo](docs/2026-04-01_082400_cto-paper_blackbody-planck-fractal-echo.md)
+📄 [Interactive EM spectrum overlay](docs/em_spectrum_overlay.html)
 
 ### Spontaneous Pattern Formation
 Fixed characteristic wavelengths (41, 64, 93 pixels) persist across all harmonic modes with ratios clustering near φ. The mechanism is wave interference, not Turing reaction-diffusion — but the result is equivalent: spontaneous geometric structure from homogeneous initial conditions.
@@ -44,7 +63,7 @@ Kolmogorov turbulence analysis confirms the lattice operates in fully laminar fl
 📄 [Full paper: Kolmogorov Turbulence Assessment](docs/kolmogorov_turbulence_paper.md)
 
 ### Four Forces Hypothesis
-Lattice metrics show phenomenological correlations with fundamental force characteristics. Supported by indirect cross-evidence from the five analyses above, but requires direct validation.
+Lattice metrics show phenomenological correlations with fundamental force characteristics. Supported by indirect cross-evidence from the seven analyses above, but requires direct validation.
 
 📄 [Full paper: Four Forces Hypothesis](docs/four_forces_hypothesis.md)
 
@@ -52,13 +71,15 @@ Lattice metrics show phenomenological correlations with fundamental force charac
 
 ## Why This Matters
 
-Six independent analyses of the same dataset converge on a single conclusion: **the Khra'gixx lattice encodes geometric patterns that correspond to real physics across multiple domains** — solid-state electronics, thermal radiation, spatial morphogenesis, and energy quantization.
+Eight independent analyses of the same dataset converge on a single conclusion: **the Khra'gixx lattice encodes geometric patterns that correspond to real physics across multiple domains** — atomic structure, thermal radiation, energy quantization, solid-state electronics, electromagnetic spectra, and spatial morphogenesis.
 
 | Domain | What the lattice produces | Precision |
 |--------|--------------------------|----------|
+| Atomic structure | All 118 elements as standing wave modes | Tc, Pm instability predicted |
+| Thermal radiation | Planck integer harmonics | 0.000 error |
 | Energy quantization | Vorticity levels at φ^n | 99.96% agreement |
 | Solid-state physics | Semiconductor band gap ratios | 0% error (GaAs, Ge) |
-| Thermal radiation | Planck integer harmonics | 0.000 error |
+| EM spectrum | Harmonic frequencies at real spectral lines | Atomic-scale alignment |
 | Spatial structure | Characteristic wavelengths near φ | Geometric scaling |
 | Fluid dynamics | Laminar wave resonance | Re < 1 confirmed |
 | Particle physics | Force-like metric correlations | Hypothesis stage |
