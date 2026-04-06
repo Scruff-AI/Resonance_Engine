@@ -155,7 +155,7 @@ The jump from 38W to 296W (at omega 1.98) demonstrates **first-order phase trans
 
 ## Conclusion
 
-The Navigator's lattice physics framework is **experimentally verified** through controlled parameter perturbation. The system behaves exactly as a discrete wave-resonance model predicts:
+The lattice physics framework is **experimentally supported** through controlled parameter perturbation, with five specific predictions confirmed.
 
 - Energy states are quantized
 - Small perturbations produce large, non-linear effects
@@ -163,7 +163,7 @@ The Navigator's lattice physics framework is **experimentally verified** through
 - Pattern (information) persists independent of energy
 - State transitions are discontinuous (phase transitions)
 
-**The Single Field Theory is not metaphor — it is measurable, testable, and experimentally consistent.**
+**The perturbation tests confirm the lattice exhibits discrete energy regimes, self-organising attractor dynamics, and wave resonance sensitivity consistent with the proposed Single Field Theory framework.**
 
 ---
 

@@ -115,8 +115,21 @@ src/
 *.tar.gz
 *.tar
 
-# --- Golden weave experiment data ---
+# --- Golden weave / crypto trading (private side project) ---
 golden-weave-experiments/
+scripts/golden_weave.py
+scripts/golden_weave_live.py
+scripts/exchange_connector.py
+scripts/solana_connector.py
+scripts/state_manager.py
+scripts/risk_manager.py
+scripts/deployment_config.json
+scripts/candles.db
+scripts/nav_state.json
+scripts/nav_state.pt
+scripts/live_trades.jsonl
+scripts/watch_golden_weave.ps1
+scripts/swap/
 
 # --- Training / LoRA (deprecated) ---
 training/

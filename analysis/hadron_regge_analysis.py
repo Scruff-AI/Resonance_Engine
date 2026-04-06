@@ -46,6 +46,7 @@ def main():
     sl_n,_,r2_n=linreg(nuc_j,nuc_m2)
     print(f"  Nucleon family:   R2={r2_n:.6f}, slope={sl_n:.4f}, alpha'={1/sl_n:.4f}")
 
+    # Group lattice data
     by_khra=defaultdict(list); by_gixx=defaultdict(list); by_omega=defaultdict(list)
     for d in data:
         by_khra[round(d['khra_amp'],4)].append(d)
@@ -55,42 +56,55 @@ def main():
     print(f"\n--- LATTICE REGGE TESTS ---")
     results={}
 
+    # khra as mass proxy
     kv=sorted(by_khra.keys()); km2=[k**2 for k in kv]
     ka=[sum(d['asymmetry'] for d in by_khra[k])/len(by_khra[k]) for k in kv]
     kvor=[sum(d['vorticity_mean'] for d in by_khra[k])/len(by_khra[k]) for k in kv]
     sl,_,r2=linreg(ka,km2); results['khra_asym']=r2
-    print(f"\n  khra^2 vs asymmetry: R2 = {r2:.6f}  {'*** REGGE ***' if r2>0.99 else ''}")
+    print(f"\n  khra_amp^2 vs asymmetry:")
+    print(f"    khra values: {kv}")
+    print(f"    khra^2:      {[f'{k:.6f}' for k in km2]}")
+    print(f"    mean asym:   {[f'{a:.4f}' for a in ka]}")
+    print(f"    R2 = {r2:.6f}  {'*** REGGE ***' if r2>0.99 else ''}")
     sl2,_,r2v=linreg(kvor,km2); results['khra_vort']=r2v
-    print(f"  khra^2 vs vorticity: R2 = {r2v:.6f}")
+    print(f"  khra_amp^2 vs vorticity: R2 = {r2v:.6f}")
 
+    # gixx as mass proxy
     gv=sorted(by_gixx.keys()); gm2=[g**2 for g in gv]
     ga=[sum(d['asymmetry'] for d in by_gixx[g])/len(by_gixx[g]) for g in gv]
     gvor=[sum(d['vorticity_mean'] for d in by_gixx[g])/len(by_gixx[g]) for g in gv]
     sl3,_,r2g=linreg(ga,gm2); results['gixx_asym']=r2g
-    print(f"\n  gixx^2 vs asymmetry: R2 = {r2g:.6f}  {'*** REGGE ***' if r2g>0.99 else ''}")
+    print(f"\n  gixx_amp^2 vs asymmetry:")
+    print(f"    gixx values: {gv}")
+    print(f"    gixx^2:      {[f'{g:.8f}' for g in gm2]}")
+    print(f"    mean asym:   {[f'{a:.4f}' for a in ga]}")
+    print(f"    R2 = {r2g:.6f}  {'*** REGGE ***' if r2g>0.99 else ''}")
     sl4,_,r2gv=linreg(gvor,gm2); results['gixx_vort']=r2gv
-    print(f"  gixx^2 vs vorticity: R2 = {r2gv:.6f}")
+    print(f"  gixx_amp^2 vs vorticity: R2 = {r2gv:.6f}")
 
+    # omega control
     ov=sorted(by_omega.keys()); om2=[o**2 for o in ov]
     oa=[sum(d['asymmetry'] for d in by_omega[o])/len(by_omega[o]) for o in ov]
     sl5,_,r2o=linreg(oa,om2); results['omega_asym']=r2o
-    print(f"\n  omega^2 vs asymmetry (control): R2 = {r2o:.6f}")
+    print(f"\n  omega^2 vs asymmetry (control): R2 = {r2o:.6f} {'(fails as expected)' if r2o<0.8 else ''}")
 
+    # Comparison table
     print(f"\n--- COMPARISON ---")
-    print(f"  {'System':>20} {'R2':>10}")
-    print(f"  {'rho-meson':>20} {r2_r:>10.6f}")
-    print(f"  {'Nucleon':>20} {r2_n:>10.6f}")
-    print(f"  {'Lattice khra':>20} {results['khra_asym']:>10.6f}")
-    print(f"  {'Lattice gixx':>20} {results['gixx_asym']:>10.6f}")
-    print(f"  {'Lattice omega':>20} {results['omega_asym']:>10.6f}")
+    print(f"  {'System':>20} {'R2':>10} {'Match?':>10}")
+    print(f"  {'rho-meson':>20} {r2_r:>10.6f} {'reference':>10}")
+    print(f"  {'Nucleon':>20} {r2_n:>10.6f} {'reference':>10}")
+    print(f"  {'Lattice khra':>20} {results['khra_asym']:>10.6f} {'*** YES' if results['khra_asym']>0.99 else 'no':>10}")
+    print(f"  {'Lattice gixx':>20} {results['gixx_asym']:>10.6f} {'*** YES' if results['gixx_asym']>0.99 else 'no':>10}")
+    print(f"  {'Lattice omega':>20} {results['omega_asym']:>10.6f} {'(control)':>10}")
 
+    # Verdict
     print(f"\n--- VERDICT ---")
     tests=[
         ("khra^2 vs asym: R2>0.99",results['khra_asym']>0.99),
         ("gixx^2 vs asym: R2>0.99",results['gixx_asym']>0.99),
-        ("omega control fails",results['omega_asym']<0.80),
-        ("Asym > vort as J proxy",results['khra_asym']>results['khra_vort']),
-        ("Matches real hadron R2",results['khra_asym']>0.99),
+        ("omega control fails (R2<0.8)",results['omega_asym']<0.80),
+        ("Asym > vorticity as J proxy",results['khra_asym']>results['khra_vort']),
+        ("Matches real hadron R2",results['khra_asym']>0.99 and r2_r>0.99),
     ]
     passed=sum(1 for _,v in tests if v)
     for name,v in tests: print(f"  {name:<45} {'PASS' if v else 'FAIL'}")
