@@ -630,9 +630,9 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 def start_http_server():
     """Start the HTTP API server in a daemon thread."""
-    server = ThreadedHTTPServer(('0.0.0.0', API_PORT), ObserverAPIHandler)
+    server = ThreadedHTTPServer(('127.0.0.1', API_PORT), ObserverAPIHandler)
     server.timeout = 1
-    print(f"[OBSERVER] HTTP API listening on 0.0.0.0:{API_PORT}")
+    print(f"[OBSERVER] HTTP API listening on 127.0.0.1:{API_PORT}")
     sys.stdout.flush()
     while running:
         server.handle_request()
@@ -855,9 +855,11 @@ def main():
     snap_sub.setsockopt_string(zmq.SUBSCRIBE, "")
     snap_sub.setsockopt(zmq.RCVTIMEO, 5000)
 
-    # Command publisher
+    # Command channel (PUB → daemon SUB on 5557)
     cmd_pub = ctx.socket(zmq.PUB)
     cmd_pub.connect(f"tcp://127.0.0.1:{COMMAND_PORT}")
+    cmd_pub.setsockopt(zmq.LINGER, 1000)
+    time.sleep(0.5)  # slow-joiner: SUB needs time to establish subscription
 
     # ACK subscriber
     ack_sub = ctx.socket(zmq.SUB)
@@ -866,7 +868,7 @@ def main():
     ack_sub.setsockopt(zmq.RCVTIMEO, 2000)
 
     # Let ZMQ connections settle
-    time.sleep(2)
+    time.sleep(0.5)
 
     print(f"[OBSERVER] ZMQ connected: tel={TELEMETRY_PORT} snap={SNAPSHOT_PORT} cmd={COMMAND_PORT} ack={ACK_PORT}")
     print(f"[OBSERVER] Model: {MODEL} | Observe interval: {OBSERVE_INTERVAL_FRAMES} frames (~{OBSERVE_INTERVAL_FRAMES * 0.1:.0f}s)")

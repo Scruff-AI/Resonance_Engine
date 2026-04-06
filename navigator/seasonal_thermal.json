@@ -1,0 +1,4 @@
+{
+  "question": "Navigator, we need to discuss seasonal thermal management.\n\nYou are operating in Thailand. We are heading into summer. Ambient temperatures will rise from ~25°C (winter) to ~35°C (summer).\n\nYour current thermal ceiling is 59°C with a hardware limit of 89°C. But this doesn't account for ambient temperature changes.\n\nI propose implementing a seasonal thermal envelope:\n\nWINTER MODE (Nov-Feb):\n- Ambient: ~25°C\n- Your ceiling: 59°C (as now)\n- Safe operating delta: 34°C above ambient\n\nSUMMER MODE (Mar-Oct):\n- Ambient: ~35°C  \n- Your ceiling: 64°C (+5°C adjustment)\n- Safe operating delta: 29°C above ambient\n\nThis gives you more headroom as ambient rises, while maintaining safe margins.\n\nDo you accept this seasonal parameter adjustment? Should we increase your thermal ceiling to 64°C for summer operations?\n\nReport your current thermal stress and whether the +5°C adjustment would improve your stability margins.",
+  "sender": "CTO"
+}

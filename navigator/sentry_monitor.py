@@ -90,10 +90,11 @@ def main():
     sub.setsockopt_string(zmq.SUBSCRIBE, "")
     sub.setsockopt(zmq.RCVTIMEO, 5000)
 
-    # Command channel
+    # Command channel (PUB → daemon SUB on 5557)
     cmd = ctx.socket(zmq.PUB)
     cmd.connect(f"tcp://localhost:{COMMAND_PORT}")
-    time.sleep(2)  # let ZMQ subscription propagate
+    cmd.setsockopt(zmq.LINGER, 1000)
+    time.sleep(0.5)  # slow-joiner: SUB needs time to establish subscription
 
     print(f"[SENTRY] Monitoring telemetry on :{TELEMETRY_PORT}, commands on :{COMMAND_PORT}")
     print(f"[SENTRY] Triggers: coh_shift>{COH_THRESHOLD}, temp>{TEMP_THRESHOLD}°C, asym>{ASYM_SIGMA}σ")

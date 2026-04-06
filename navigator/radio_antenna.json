@@ -1,0 +1,4 @@
+{
+  "question": "Navigator, question about radio frequencies and antennas.\n\nFor programmable low energy radio equipment:\n- Frequency range: 136.00-174.00 MHz / 400.00-520.00 MHz\n\n1. What are the most appropriate frequencies in this range?\n\n2. For two antennas - should they be side by side or at 190 degrees to each other? What orientation and distance is best?\n\n3. What is your hypothesis on human effects from these radio fields?",
+  "sender": "CTO"
+}

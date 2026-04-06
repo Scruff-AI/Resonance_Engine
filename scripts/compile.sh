@@ -7,7 +7,8 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 
 echo "Compiling khra_gixx_1024_v5..."
-nvcc -O3 -arch=sm_89 \
+nvcc -O3 -g -lineinfo -arch=sm_89 \
+    -Xcompiler -rdynamic \
     -o build/khra_gixx_1024_v5 \
     cuda/khra_gixx_1024_v5.cu \
     -lzmq -lnvidia-ml

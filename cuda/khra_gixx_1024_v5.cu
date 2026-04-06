@@ -25,6 +25,8 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdint.h>
+#include <signal.h>
+#include <execinfo.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -580,6 +582,8 @@ static char last_cmd_name[64] = "";
 static float inject_cx = 0.0f, inject_cy = 0.0f;
 static float inject_sigma = 16.0f, inject_strength = 0.1f;
 static int stress_snapshot_now_flag = 0;
+static unsigned long long total_injections = 0;
+static int health_check_pending = 0;
 
 // === COMMAND HANDLER ===
 // v3 commands: set_omega, set_khra_amp, set_gixx_amp, reset_equilibrium,
@@ -733,11 +737,43 @@ static int handle_command(const char* msg, float* h_f, float* d_f_current,
     } else if (strncmp(cmd_start, "stress_snapshot_now", 19) == 0) {
         strncpy(last_cmd_name, "stress_snapshot_now", sizeof(last_cmd_name) - 1);
         return 7;
+    } else if (strncmp(cmd_start, "health_check", 12) == 0) {
+        strncpy(last_cmd_name, "health_check", sizeof(last_cmd_name) - 1);
+        return 8;
     }
     return 0;
 }
 
+static volatile int g_last_cycle = -1;
+static volatile int g_last_cmd_len = -1;
+static volatile int g_in_handle_cmd = 0;
+static volatile int running = 1;
+static time_t start_time;
+
+static void crash_handler(int sig) {
+    const char* name = (sig == SIGSEGV) ? "SIGSEGV" : (sig == SIGABRT) ? "SIGABRT" : "SIGNAL";
+    fprintf(stderr, "\n[CRASH] %s at cycle %d, last_cmd_len=%d, in_handle_cmd=%d\n",
+            name, g_last_cycle, g_last_cmd_len, g_in_handle_cmd);
+    fflush(stderr);
+    void* bt[20];
+    int n = backtrace(bt, 20);
+    backtrace_symbols_fd(bt, n, STDERR_FILENO);
+    _exit(128 + sig);
+}
+
+static void shutdown_handler(int sig) {
+    printf("\n[SHUTDOWN] Received signal %d, initiating graceful shutdown...\n", sig);
+    fflush(stdout);
+    running = 0;
+}
+
 int main() {
+    signal(SIGSEGV, crash_handler);
+    signal(SIGABRT, crash_handler);
+    signal(SIGBUS, crash_handler);
+    signal(SIGTERM, shutdown_handler);
+    signal(SIGINT, shutdown_handler);
+    start_time = time(NULL);
     printf("Khra'gixx 1024 v5 — GOLDEN-WEAVE INTEGRATION\n"); fflush(stdout);
     printf("PUB telemetry on 5556 | SUB commands on 5557\n"); fflush(stdout);
     printf("PUB snapshots on 5558 | PUB ack on 5559 | PUB stress on 5560\n"); fflush(stdout);
@@ -747,7 +783,7 @@ int main() {
     printf("Commands: save_state, load_state, set_autosave, set_omega, set_khra_amp,\n");
     printf("          set_gixx_amp, reset_equilibrium, set_snapshot_interval,\n");
     printf("          snapshot_now, export_timeseries, inject_density,\n");
-    printf("          stress_snapshot_now\n\n"); fflush(stdout);
+    printf("          stress_snapshot_now, health_check\n\n"); fflush(stdout);
 
     // Init CRC32 table
     crc32_init();
@@ -820,26 +856,26 @@ int main() {
     zmq_setsockopt(publisher, ZMQ_LINGER, &linger, sizeof(linger));
     int rc = zmq_bind(publisher, "tcp://127.0.0.1:5556");
     if (rc != 0) {
-        fprintf(stderr, "WARNING: zmq_bind PUB failed: %s (port 5556 may be in use)\n", zmq_strerror(zmq_errno()));
+        fprintf(stderr, "FATAL: zmq_bind PUB failed: %s (port 5556 in use — kill stale daemon first)\n", zmq_strerror(zmq_errno()));
         fflush(stderr);
-    } else {
-        printf("ZMQ PUB bound to port 5556\n"); fflush(stdout);
+        return 1;
     }
+    printf("ZMQ PUB bound to port 5556\n"); fflush(stdout);
 
-    // === ZMQ: SUB commands on 5557 ===
+    // === ZMQ: SUB commands on 5557 (receives from PUB sockets) ===
     void* subscriber = zmq_socket(zmq_ctx, ZMQ_SUB);
     if (!subscriber) { fprintf(stderr, "zmq_socket SUB failed\n"); return 1; }
-    zmq_setsockopt(subscriber, ZMQ_SUBSCRIBE, "", 0);
     int rcvhwm = 10;
     zmq_setsockopt(subscriber, ZMQ_RCVHWM, &rcvhwm, sizeof(rcvhwm));
     zmq_setsockopt(subscriber, ZMQ_LINGER, &linger, sizeof(linger));
+    zmq_setsockopt(subscriber, ZMQ_SUBSCRIBE, "", 0);  // subscribe to all
     rc = zmq_bind(subscriber, "tcp://127.0.0.1:5557");
     if (rc != 0) {
-        fprintf(stderr, "WARNING: zmq_bind SUB failed: %s (port 5557 may be in use)\n", zmq_strerror(zmq_errno()));
+        fprintf(stderr, "FATAL: zmq_bind SUB failed: %s (port 5557 in use — kill stale daemon first)\n", zmq_strerror(zmq_errno()));
         fflush(stderr);
-    } else {
-        printf("ZMQ SUB bound to port 5557 (command channel)\n"); fflush(stdout);
+        return 1;
     }
+    printf("ZMQ SUB bound to port 5557 (command channel)\n"); fflush(stdout);
 
     // === v4: ZMQ PUB snapshots on 5558 ===
     void* snapshot_pub = zmq_socket(zmq_ctx, ZMQ_PUB);
@@ -849,11 +885,11 @@ int main() {
     zmq_setsockopt(snapshot_pub, ZMQ_LINGER, &linger, sizeof(linger));
     rc = zmq_bind(snapshot_pub, "tcp://127.0.0.1:5558");
     if (rc != 0) {
-        fprintf(stderr, "WARNING: zmq_bind snapshot PUB failed: %s (port 5558)\n", zmq_strerror(zmq_errno()));
+        fprintf(stderr, "FATAL: zmq_bind snapshot PUB failed: %s (port 5558 in use — kill stale daemon first)\n", zmq_strerror(zmq_errno()));
         fflush(stderr);
-    } else {
-        printf("ZMQ PUB bound to port 5558 (vision snapshots, raw float32)\n"); fflush(stdout);
+        return 1;
     }
+    printf("ZMQ PUB bound to port 5558 (vision snapshots, raw float32)\n"); fflush(stdout);
 
     // === v4: ZMQ PUB acknowledgments on 5559 ===
     void* ack_pub = zmq_socket(zmq_ctx, ZMQ_PUB);
@@ -862,11 +898,11 @@ int main() {
     zmq_setsockopt(ack_pub, ZMQ_LINGER, &linger, sizeof(linger));
     rc = zmq_bind(ack_pub, "tcp://127.0.0.1:5559");
     if (rc != 0) {
-        fprintf(stderr, "WARNING: zmq_bind ACK PUB failed: %s (port 5559)\n", zmq_strerror(zmq_errno()));
+        fprintf(stderr, "FATAL: zmq_bind ACK PUB failed: %s (port 5559 in use — kill stale daemon first)\n", zmq_strerror(zmq_errno()));
         fflush(stderr);
-    } else {
-        printf("ZMQ PUB bound to port 5559 (command ACK)\n"); fflush(stdout);
+        return 1;
     }
+    printf("ZMQ PUB bound to port 5559 (command ACK)\n"); fflush(stdout);
 
     // === v5: ZMQ PUB stress snapshots on 5560 ===
     void* stress_pub = zmq_socket(zmq_ctx, ZMQ_PUB);
@@ -876,11 +912,11 @@ int main() {
     zmq_setsockopt(stress_pub, ZMQ_LINGER, &linger, sizeof(linger));
     rc = zmq_bind(stress_pub, "tcp://127.0.0.1:5560");
     if (rc != 0) {
-        fprintf(stderr, "WARNING: zmq_bind stress PUB failed: %s (port 5560)\n", zmq_strerror(zmq_errno()));
+        fprintf(stderr, "FATAL: zmq_bind stress PUB failed: %s (port 5560 in use — kill stale daemon first)\n", zmq_strerror(zmq_errno()));
         fflush(stderr);
-    } else {
-        printf("ZMQ PUB bound to port 5560 (stress field snapshots)\n"); fflush(stdout);
+        return 1;
     }
+    printf("ZMQ PUB bound to port 5560 (stress field snapshots)\n"); fflush(stdout);
 
     // === HOST MEMORY ===
     float *h_rho = (float*)malloc(scalar_size);
@@ -911,22 +947,33 @@ int main() {
     int cycle = 0, current = 0;
     int autosave_interval = 100000;
     int last_autosave = 0;
-    int pub_fail_count = 0;  // v4: resilient send counter
+    int pub_fail_count = 0;  // v4: resilient send counter for telemetry
+    int snap_fail_count = 0;  // v4: resilient send counter for snapshots
+    int stress_fail_count = 0;  // v4: resilient send counter for stress
+    int ack_fail_count = 0;  // v4: resilient send counter for acks
 
     printf("[v5] Autosave every %d cycles | Snapshots every %d cycles\n", autosave_interval, snapshot_interval);
     fflush(stdout);
     printf("[Khra'gixx v5 Daemon] Starting main loop...\n"); fflush(stdout);
     
-    while (1) {
+    while (running) {
         // === Check for commands (non-blocking) ===
         char cmd_buf[512];
         char cmd_path[512];
         int cmd_len = zmq_recv(subscriber, cmd_buf, sizeof(cmd_buf) - 1, ZMQ_DONTWAIT);
+        g_last_cycle = cycle;
+        g_last_cmd_len = cmd_len;
         if (cmd_len > 0) {
+            // Clamp to buffer size (zmq_recv returns actual msg size even if truncated)
+            if (cmd_len > (int)(sizeof(cmd_buf) - 1)) cmd_len = sizeof(cmd_buf) - 1;
             cmd_buf[cmd_len] = '\0';
             cmd_path[0] = '\0';
             last_cmd_name[0] = '\0';
+            fprintf(stderr, "[DBG] Recv cmd (%d bytes) at cycle %d: %.80s\n", cmd_len, cycle, cmd_buf);
+            fflush(stderr);
+            g_in_handle_cmd = 1;
             int cmd_result = handle_command(cmd_buf, h_f, d_f[current], cmd_path, sizeof(cmd_path));
+            g_in_handle_cmd = 0;
 
             const char* ack_status = "ok";
 
@@ -955,28 +1002,40 @@ int main() {
                     ack_status = "error";
             } else if (cmd_result == 6) {
                 // v5: inject_density — launch kernel on current distribution
+                total_injections++;
                 inject_density_kernel<<<grid, block>>>(d_f[current],
                     inject_cx, inject_cy, inject_sigma, inject_strength);
                 CUDA_CHECK(cudaDeviceSynchronize());
-                printf("[v5] inject_density applied at (%.1f,%.1f) σ=%.1f str=%.4f\n",
-                       inject_cx, inject_cy, inject_sigma, inject_strength);
+                printf("[v5] inject_density #%llu applied at (%.1f,%.1f) σ=%.1f str=%.4f\n",
+                       total_injections, inject_cx, inject_cy, inject_sigma, inject_strength);
                 fflush(stdout);
+                // Emit injection metadata on ack_pub
+                char inj_msg[512];
+                snprintf(inj_msg, sizeof(inj_msg),
+                    "{\"injection_id\":%llu,\"cycle\":%d,\"x\":%.1f,\"y\":%.1f,\"sigma\":%.1f,\"strength\":%.4f}",
+                    total_injections, cycle, inject_cx, inject_cy, inject_sigma, inject_strength);
+                zmq_send_resilient(&ack_pub, zmq_ctx, "tcp://127.0.0.1:5559",
+                                   ZMQ_PUB, 1, inj_msg, strlen(inj_msg), 0, &ack_fail_count);
             } else if (cmd_result == 7) {
                 // v5: stress snapshot — fires at next telemetry tick
                 stress_snapshot_now_flag = 1;
+            } else if (cmd_result == 8) {
+                // v5: health_check — set flag to respond in telemetry section with actual values
+                health_check_pending = 1;
             }
 
-            // v4: Publish ACK on port 5559
-            if (last_cmd_name[0] != '\0') {
+            // v4: Publish ACK on port 5559 (for commands that didn't already send a response)
+            if (last_cmd_name[0] != '\0' && cmd_result != 6 && cmd_result != 8) {
                 char ack_msg[256];
                 snprintf(ack_msg, sizeof(ack_msg),
                     "{\"ack\":\"%s\",\"cycle\":%d,\"status\":\"%s\"}",
                     last_cmd_name, cycle, ack_status);
-                zmq_send(ack_pub, ack_msg, strlen(ack_msg), 0);
+                zmq_send_resilient(&ack_pub, zmq_ctx, "tcp://127.0.0.1:5559",
+                                   ZMQ_PUB, 1, ack_msg, strlen(ack_msg), 0, &ack_fail_count);
             }
         } else if (cmd_len < 0 && zmq_errno() != EAGAIN) {
             // v4: log unexpected receive errors (EAGAIN is normal for DONTWAIT)
-            fprintf(stderr, "[ZMQ] SUB recv error: %s\n", zmq_strerror(zmq_errno()));
+            fprintf(stderr, "[ZMQ] PULL recv error: %s\n", zmq_strerror(zmq_errno()));
             fflush(stderr);
         }
 
@@ -1093,6 +1152,26 @@ int main() {
             // v4: ring buffer log
             telemetry_ring_write(msg);
 
+            // v5: health_check response (with actual coherence/asymmetry values)
+            if (health_check_pending) {
+                time_t now = time(NULL);
+                long uptime = (long)(now - start_time);
+                nvmlMemory_t mem_info;
+                float gpu_mem_mb = 0.0f;
+                if (nvml_ok && nvmlDeviceGetMemoryInfo(nvml_device, &mem_info) == NVML_SUCCESS) {
+                    gpu_mem_mb = (float)mem_info.used / (1024.0f * 1024.0f);
+                }
+                char health_msg[1024];
+                snprintf(health_msg, sizeof(health_msg),
+                    "{\"health\":{\"cycle\":%d,\"coherence\":%.4f,\"asymmetry\":%.4f,\"omega\":%.3f,\"gpu_temp_c\":%u,\"gpu_mem_used_mb\":%.1f,\"uptime_seconds\":%ld,\"total_injections\":%llu,\"last_checkpoint_cycle\":%d}}",
+                    cycle, coherence, asymmetry, h_omega, gpu_temp, gpu_mem_mb, uptime, total_injections, last_autosave);
+                zmq_send_resilient(&ack_pub, zmq_ctx, "tcp://127.0.0.1:5559",
+                                   ZMQ_PUB, 1, health_msg, strlen(health_msg), 0, &ack_fail_count);
+                printf("[v5] health_check responded at cycle %d (coh=%.4f, asym=%.4f)\n", cycle, coherence, asymmetry);
+                fflush(stdout);
+                health_check_pending = 0;
+            }
+
             if (cycle % 100 == 0) {
                 printf("Cycle %d: Coh=%.3f Asym=%.4f omega=%.3f T=%uC P=%.0fW GPU=%u%% Mem=%.0f%%\n",
                        cycle, coherence, asymmetry, h_omega, gpu_temp, gpu_power_mw/1000.0f, gpu_util_pct, gpu_mem_pct);
@@ -1115,7 +1194,9 @@ int main() {
                 memcpy(snap_buf + 4, &snap_w, 2);
                 memcpy(snap_buf + 6, &snap_h, 2);
                 memcpy(snap_buf + 8, h_rho, scalar_size);
-                zmq_send(snapshot_pub, snap_buf, 8 + scalar_size, 0);
+                // v4: resilient send with auto-reconnect
+                zmq_send_resilient(&snapshot_pub, zmq_ctx, "tcp://127.0.0.1:5558",
+                                   ZMQ_PUB, 1, snap_buf, 8 + scalar_size, 0, &snap_fail_count);
 
                 if (snapshot_now_flag) {
                     printf("[SNAP] On-demand snapshot at cycle %d\n", cycle);
@@ -1141,7 +1222,9 @@ int main() {
                 memcpy(stress_snap_buf + 8, h_sxx, scalar_size);
                 memcpy(stress_snap_buf + 8 + scalar_size, h_syy, scalar_size);
                 memcpy(stress_snap_buf + 8 + 2 * scalar_size, h_sxy, scalar_size);
-                zmq_send(stress_pub, stress_snap_buf, stress_snap_size, 0);
+                // v4: resilient send with auto-reconnect
+                zmq_send_resilient(&stress_pub, zmq_ctx, "tcp://127.0.0.1:5560",
+                                   ZMQ_PUB, 1, stress_snap_buf, stress_snap_size, 0, &stress_fail_count);
                 printf("[v5-SNAP] Stress snapshot at cycle %d (%.1f MB)\n",
                        cycle, stress_snap_size / (1024.0 * 1024.0));
                 fflush(stdout);
@@ -1159,7 +1242,32 @@ int main() {
         usleep(10000);
     }
     
-    // Cleanup (unreachable in practice)
+    // === Graceful shutdown ===
+    printf("[SHUTDOWN] Saving final checkpoint at cycle %d...\n", cycle);
+    fflush(stdout);
+    save_checkpoint(h_f, d_f[current], cycle, ".");
+    
+    printf("[SHUTDOWN] Closing ZMQ sockets...\n");
+    fflush(stdout);
+    zmq_close(publisher);
+    zmq_close(subscriber);
+    zmq_close(snapshot_pub);
+    zmq_close(ack_pub);
+    zmq_close(stress_pub);
+    
+    printf("[SHUTDOWN] Destroying ZMQ context...\n");
+    fflush(stdout);
+    zmq_ctx_destroy(zmq_ctx);
+    
+    printf("[SHUTDOWN] Freeing CUDA memory...\n");
+    fflush(stdout);
+    cudaFree(d_f[0]); cudaFree(d_f[1]); cudaFree(d_rho);
+    cudaFree(d_ux); cudaFree(d_uy);
+    cudaFree(d_sxx); cudaFree(d_syy); cudaFree(d_sxy);
+    cudaDeviceReset();
+    
+    printf("[SHUTDOWN] Freeing host memory...\n");
+    fflush(stdout);
     telemetry_ring_close();
     free(h_f);
     free(h_rho);
@@ -1167,15 +1275,10 @@ int main() {
     free(h_sxx); free(h_syy); free(h_sxy);
     free(snap_buf);
     free(stress_snap_buf);
-    cudaFree(d_f[0]); cudaFree(d_f[1]); cudaFree(d_rho);
-    cudaFree(d_ux); cudaFree(d_uy);
-    cudaFree(d_sxx); cudaFree(d_syy); cudaFree(d_sxy);
-    zmq_close(publisher);
-    zmq_close(subscriber);
-    zmq_close(snapshot_pub);
-    zmq_close(ack_pub);
-    zmq_close(stress_pub);
-    zmq_ctx_destroy(zmq_ctx);
+    
     if (nvml_ok) nvmlShutdown();
+    
+    printf("[SHUTDOWN] Complete. Uptime: %ld seconds\n", (long)(time(NULL) - start_time));
+    fflush(stdout);
     return 0;
 }

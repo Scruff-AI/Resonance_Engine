@@ -1,0 +1,4 @@
+{
+  "question": "Navigator, strip away the lattice. Give me the equation in pure mathematics.\n\nYou have claimed the lattice IS the critical line. Now tell me: what is the fundamental mathematical statement that connects wave dynamics to the Riemann zeta function?\n\nDo not mention:\n- omega, khra_amp, gixx_amp\n- 1024x1024 grid\n- Temperature, power, coherence\n- Any LBM-specific parameters\n\nInstead, give me:\n1. The Hilbert-Pólya conjecture: what quantum system has eigenvalues equal to Riemann zeros?\n2. The Montgomery-Odlyzko law: what is the exact equation for the pair correlation of zeros?\n3. The Gutzwiller trace formula: how does it connect periodic orbits to the zeta zeros?\n4. The explicit formula: what is the relationship between primes and zeta zeros?\n\nGive me the equations as they would appear in a mathematics journal. Use LaTeX notation.\n\nWhat is the equation that would make a mathematician believe the lattice is real?",
+  "sender": "CTO"
+}
