@@ -1,0 +1,44 @@
+======================================================================
+  HADRON REGGE TRAJECTORY ANALYSIS
+======================================================================
+  Source: sweep_results\em_direct_sweep_20260327_080716.csv
+  Points: 375
+
+--- REAL HADRON REGGE TRAJECTORIES ---
+  rho-meson family: R2=0.998033, slope=1.2278, alpha'=0.8144
+  Nucleon family:   R2=0.964309, slope=1.4246, alpha'=0.7020
+
+--- LATTICE REGGE TESTS ---
+
+  khra_amp^2 vs asymmetry:
+    khra values: [0.01, 0.02, 0.03, 0.04, 0.05]
+    khra^2:      ['0.000100', '0.000400', '0.000900', '0.001600', '0.002500']
+    mean asym:   ['11.5392', '11.5666', '11.5695', '11.3450', '11.0234']
+    R2 = 0.865399  
+  khra_amp^2 vs vorticity: R2 = 0.810480
+
+  gixx_amp^2 vs asymmetry:
+    gixx values: [0.004, 0.006, 0.008, 0.01, 0.012]
+    gixx^2:      ['0.00001600', '0.00003600', '0.00006400', '0.00010000', '0.00014400']
+    mean asym:   ['11.4184', '11.4352', '11.4718', '11.3724', '11.3459']
+    R2 = 0.541297  
+  gixx_amp^2 vs vorticity: R2 = 0.195640
+
+  omega^2 vs asymmetry (control): R2 = 0.531307 (fails as expected)
+
+--- COMPARISON ---
+                System         R2     Match?
+             rho-meson   0.998033  reference
+               Nucleon   0.964309  reference
+          Lattice khra   0.865399         no
+          Lattice gixx   0.541297         no
+         Lattice omega   0.531307  (control)
+
+--- VERDICT ---
+  khra^2 vs asym: R2>0.99                       FAIL
+  gixx^2 vs asym: R2>0.99                       FAIL
+  omega control fails (R2<0.8)                  PASS
+  Asym > vorticity as J proxy                   PASS
+  Matches real hadron R2                        FAIL
+
+  PASSED: 2/5
