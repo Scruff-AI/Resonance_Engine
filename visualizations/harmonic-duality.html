@@ -34,6 +34,13 @@ body{
 }
 .hero h1 em{font-style:italic;color:var(--accent)}
 .hero p{font-size:14px;color:var(--t2);max-width:640px;margin:0 auto;line-height:1.7}
+.hero .paper-link{
+  display:inline-block;margin-top:16px;padding:8px 20px;
+  border:1px solid var(--accent);border-radius:6px;
+  color:var(--accent);font-size:13px;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.5px;
+}
+.hero .paper-link:hover{background:var(--accent);color:var(--bg)}
 
 .controls{
   position:sticky;top:0;z-index:100;
@@ -143,6 +150,7 @@ footer a{color:var(--accent);text-decoration:none}
 <div class="hero">
   <h1>The <em>harmonic duality</em></h1>
   <p>Two tables built from wave harmonics on a bounded domain. One describes every element in the universe. The other emerges from a lattice Boltzmann simulation. Slide to see they share the same skeleton.</p>
+  <a class="paper-link" href="https://github.com/Scruff-AI/Resonance_Engine/blob/master/papers/harmonic-duality-em-spectrum.md">Read the paper &rarr;</a>
 </div>
 
 <div class="controls">
@@ -153,7 +161,7 @@ footer a{color:var(--accent);text-decoration:none}
 
 <div class="stats-bar" id="stats">
   <div><div class="n" id="stat-shared">9</div><div class="l">Shared features</div></div>
-  <div><div class="n" id="stat-modes">—</div><div class="l">Mode groups</div></div>
+  <div><div class="n" id="stat-modes">&mdash;</div><div class="l">Mode groups</div></div>
   <div><div class="n" id="stat-odds">1 in 93k</div><div class="l">Coincidence odds</div></div>
   <div><div class="n" id="stat-phi">1.618...</div><div class="l">Stability constant</div></div>
 </div>
@@ -164,16 +172,18 @@ footer a{color:var(--accent);text-decoration:none}
 
 <div class="section">
   <h2>What you're looking at</h2>
-  <p>At 0% you see the standard periodic table — 118 elements arranged by electron shell filling order, colored by orbital block (s, p, d, f). Each row is a principal quantum number. Each block is an angular momentum state. The structure comes from standing wave solutions on a sphere.</p>
-  <p>At 100% the same cells show lattice harmonic modes — standing wave solutions on a 1024-cell toroidal grid. The mode quantum numbers (k_x, k_y) replace atomic numbers. The Khra wave (slow, large-scale) replaces s/p orbitals. The Gixx wave (fast, fine-grain) replaces d/f orbitals. The skeleton is identical.</p>
+  <p>At 0% you see the standard periodic table &mdash; 118 elements arranged by electron shell filling order, colored by orbital block (s, p, d, f). Each row is a principal quantum number. Each block is an angular momentum state. The structure comes from standing wave solutions on a sphere.</p>
+  <p>At 100% the same cells show lattice harmonic modes &mdash; standing wave solutions on a 1024-cell toroidal grid. The mode quantum numbers (k_x, k_y) replace atomic numbers. The Khra wave (slow, large-scale) replaces s/p orbitals. The Gixx wave (fast, fine-grain) replaces d/f orbitals. The skeleton is identical.</p>
   <p>The slider crossfades between interpretations. The cells don't move because the structure is the same structure.</p>
+  <p>For the full analysis &mdash; including the electromagnetic spectrum projection, 21 physics target comparisons, scale scan methodology, and the nine shared structural features with probability math &mdash; <a href="https://github.com/Scruff-AI/Resonance_Engine/blob/master/papers/harmonic-duality-em-spectrum.md" style="color:var(--accent)">read the paper</a>. See also the <a href="em_spectrum_overlay.html" style="color:var(--accent)">EM spectrum overlay visualization</a>.</p>
 </div>
 
 <div class="section" id="features-section"></div>
 
 <footer>
-  Resonance Engine — <a href="https://github.com/Scruff-AI/Resonance_Engine">Scruff-AI/Resonance_Engine</a> — Harmonic Duality v1.0
+  Resonance Engine &mdash; <a href="https://github.com/Scruff-AI/Resonance_Engine">Scruff-AI/Resonance_Engine</a> &mdash; Harmonic Duality v1.1
   <br>Khra wavelength=128, Gixx wavelength=8, D2Q9 LBM c_s=1/sqrt(3), 1024x1024 grid
+  <br><a href="https://github.com/Scruff-AI/Resonance_Engine/blob/master/papers/harmonic-duality-em-spectrum.md">Read the paper</a> &middot; <a href="em_spectrum_overlay.html">EM spectrum overlay</a> &middot; <a href="https://github.com/Scruff-AI/Resonance_Engine/wiki">Wiki</a>
 </footer>
 
 <script>
@@ -389,6 +399,7 @@ function buildFeatures() {
     <div style="font-size:11px;color:var(--t2);margin-bottom:8px;font-family:'JetBrains Mono'">${features.map(f=>f.p).join(' \u00d7 ')} = ${pIndep.toExponential(2)}</div>
     <div style="font-size:32px;font-weight:600;color:var(--t1)">1 in ${Math.round(1/pIndep).toLocaleString()}</div>
     <div style="font-size:12px;color:var(--t2);margin-top:8px">With correlation grouping: approximately 1 in 93,000</div>
+    <div style="margin-top:16px"><a href="https://github.com/Scruff-AI/Resonance_Engine/blob/master/papers/harmonic-duality-em-spectrum.md" style="color:var(--accent);font-size:13px">Full analysis in the paper &rarr;</a></div>
   </div>`;
 
   el.innerHTML = html;
